@@ -1,0 +1,52 @@
+.site_title img {
+    padding: 5px;
+}
+
+.nav_menu .navbar-nav h1 {
+    text-align: justify;
+}
+
+.licensing_model .tile-stats h3 {
+    margin: 20px;
+}
+
+.licensing_model .tile-stats .icon {
+    width: 55px;
+    top: 0;
+}
+
+.licensing_model .tile-stats .icon img {
+    width: 100px;
+}
+
+.licensing_model .tile-stats .sub_header {
+    color: #853E29;
+    font-style: italic;
+    text-align: center;
+    margin: 0 20px 10px 20px;
+    padding-top: 10px;
+}
+
+.licensing_model .tile-stats .content {
+    margin: 20px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.dropdown-menu li a {
+    margin: 5px 0 5px 0;
+}
+
+.dropdown-menu li a i{
+    padding-right: 5px;
+}
+
+small.description{
+    padding: 10px 0 10px 0;
+}
+
+@media (max-width: 400px) {
+    .top_nav .navbar-right {
+        width: 83%;
+    }
+}

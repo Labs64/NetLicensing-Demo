@@ -1,0 +1,81 @@
+{
+    "name": "labs64/laravel-boilerplate",
+    "description": "Laravel 5 Boilerplate",
+    "type": "project",
+    "keywords": ["php", "framework", "laravel", "laravel5", "admin", "theme", "starter", "bootstrap", "boilerplate", "docker", "template", "social-login", "nodejs"],
+    "homepage": "https://github.com/Labs64/laravel-boilerplate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Labs64 GmbH",
+            "email": "info@labs64.com",
+            "homepage": "http://www.labs64.com"
+        }
+    ],
+    "support": {
+        "email": "info@labs64.com",
+        "issues": "https://github.com/Labs64/laravel-boilerplate/issues",
+        "wiki": "https://github.com/Labs64/laravel-boilerplate",
+        "source": "https://github.com/Labs64/laravel-boilerplate",
+        "docs": "https://github.com/Labs64/laravel-boilerplate"
+    },
+    "require": {
+        "php": ">=5.6.4",
+        "Labs64/NetLicensingClient-php": "dev-pre-2.3.7",
+        "arcanedev/log-viewer": "~4.0",
+        "arcanedev/no-captcha": "~3.0",
+        "creativeorange/gravatar": "~1.0",
+        "davejamesmiller/laravel-breadcrumbs": "^3.0",
+        "kyslik/column-sortable": "^5.4",
+        "laravel/framework": "5.4.*",
+        "laravel/socialite": "^3.0",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html": "5.4.*"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~5.7",
+        "barryvdh/laravel-debugbar": "^2.1",
+        "barryvdh/laravel-ide-helper": "^2.2",
+        "doctrine/dbal": "^2.5"
+    },
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ],
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan optimize"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "prefer-stable": true
+}

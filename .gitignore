@@ -1,20 +1,37 @@
+!.gitkeep
+
+data/
+
+# Laravel, nodeJS, Bower, Gulp exclusions, Composer exclusions
+.htaccess
 vendor/
 node_modules/
-npm-debug.log
-
-# Laravel 4 specific
+bower_components/
 bootstrap/compiled.php
-app/storage/
+bootstrap/cache/
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-storage/*.key
+storage/
+storage/debugbar/
+storage/framework/views/
+storage/framework/sessions/
+
+composer.phar
+composer.lock
+phpunit.phar
+
+public/assets
+public/mix-manifest.json
+
+.env
 .env.*.php
 .env.php
-.env
-Homestead.yaml
-Homestead.json
+.sass-cache
 
-# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+# IDE exclusions
+.DS_Store
+Thumbs.db
+.idea
+_ide_helper.php
+.phpstorm.meta.php
+*.sqlite
 .rocketeer/
