@@ -1,9 +1,9 @@
 {
-    "name": "labs64/laravel-boilerplate",
-    "description": "Laravel 5 Boilerplate",
+    "name": "labs64/netlicensing-demo",
+    "description": "Labs64 NetLicensing Demo",
     "type": "project",
-    "keywords": ["php", "framework", "laravel", "laravel5", "admin", "theme", "starter", "bootstrap", "boilerplate", "docker", "template", "social-login", "nodejs"],
-    "homepage": "https://github.com/Labs64/laravel-boilerplate",
+    "keywords": ["php", "framework", "laravel", "laravel5", "admin", "theme", "starter", "bootstrap", "NetLicensing", "docker", "template", "social-login", "nodejs"],
+    "homepage": "https://github.com/Labs64/NetLicensing-Demo",
     "license": "MIT",
     "authors": [
         {
@@ -14,10 +14,10 @@
     ],
     "support": {
         "email": "info@labs64.com",
-        "issues": "https://github.com/Labs64/laravel-boilerplate/issues",
-        "wiki": "https://github.com/Labs64/laravel-boilerplate",
-        "source": "https://github.com/Labs64/laravel-boilerplate",
-        "docs": "https://github.com/Labs64/laravel-boilerplate"
+        "issues": "https://github.com/Labs64/NetLicensing-Demo/issues",
+        "wiki": "https://github.com/Labs64/NetLicensing-Demo",
+        "source": "https://github.com/Labs64/NetLicensing-Demo",
+        "docs": "https://github.com/Labs64/NetLicensing-Demo"
     },
     "require": {
         "php": ">=5.6.4",
