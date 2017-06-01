@@ -47,3 +47,18 @@ mix.styles([
     'bower_components/SyntaxHighlighter/styles/shThemeDefault.css',
     'bower_components/FooTable/compiled/footable.bootstrap.min.css'
 ], 'public/assets/css/try_and_buy.css').version();
+
+mix.scripts([
+    'bower_components/SyntaxHighlighter/scripts/XRegExp.js',
+    'bower_components/SyntaxHighlighter/scripts/shCore.js',
+    'bower_components/SyntaxHighlighter/scripts/shBrushXml.js',
+    'bower_components/SyntaxHighlighter/scripts/shBrushPhp.js',
+    'bower_components/FooTable/compiled/footable.min.js',
+    'resources/assets/js/subscription.js'
+], 'public/assets/js/subscription.js').version();
+
+mix.styles([
+    'bower_components/SyntaxHighlighter/styles/shCore.css',
+    'bower_components/SyntaxHighlighter/styles/shThemeDefault.css',
+    'bower_components/FooTable/compiled/footable.bootstrap.min.css'
+], 'public/assets/css/subscription.css').version();

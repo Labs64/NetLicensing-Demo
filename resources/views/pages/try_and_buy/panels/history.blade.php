@@ -29,7 +29,7 @@
                     </div>
                     <div class="media-body">
                         <a href="{{ route('try_and_buy', ['history' => $history->get('id')]) }}">
-                            @if($history->get('validationLog')->get('error') || $history->get('errors'))
+                            @if($history->get('validationLog.error') || $history->get('errors'))
                                 <span class="title error">
                                     Validation - Error
                                 </span>
@@ -48,8 +48,8 @@
                             @endif
 
                             <div class="history_content">
-                                <p><strong>Licensee Number:</strong> {{ $history->get('setup')->get('licensee_number') }}</p>
-                                <p><strong>Product Number:</strong> {{ $history->get('setup')->get('product_number') }}</p>
+                                <p><strong>Licensee Number:</strong> {{ $history->get('setup.licensee_number') }}</p>
+                                <p><strong>Product Number:</strong> {{ $history->get('setup.product_number') }}</p>
                                 <p><small>{{ $history->get('date')->diffForHumans() }}</small></p>
                             </div>
                         </a>

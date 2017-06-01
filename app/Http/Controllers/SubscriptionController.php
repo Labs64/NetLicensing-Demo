@@ -8,6 +8,7 @@ class SubscriptionController extends Controller
 {
     public function index(Request $request)
     {
-        return view('subscription');
+        return view('pages.subscription.index')
+            ->with('log', null);
     }
 }

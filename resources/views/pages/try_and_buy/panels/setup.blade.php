@@ -39,30 +39,30 @@
                 </li>
             </ul>
 
-            {{ Form::open(['route' => 'try_and_buy.validate', 'class'=>'form-horizontal form-label-left input_mask']) }}
+            {{ Form::open(['route' => 'try_and_buy.validate', 'class'=>'form-horizontal form-label-left input_mask try_and_buy']) }}
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade {{ !$errors->has('setup') ? 'active in' : '' }}" id="playground">
                         <div class="ln_solid"></div>
                         <div class="row">
                             <div class="col-md-4">
-                                @if($validationLog && $validationLog->get('validation', collect())->get('shop'))
-                                    <a href="{{ $validationLog->get('validation', collect())->get('shop', collect())->get('shopURL') }}" class="btn btn-app">
-                                        <i class="fa fa-shopping-cart"></i>
+                                @if($validationLog->get('validation.shop'))
+                                    <a href="{{ $validationLog->get('validation.shop.shopURL')}}" class="btn btn-app">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         Shop
                                     </a>
                                 @else
                                     <button class="btn btn-app" disabled="disabled">
-                                        <i class="fa fa-shopping-cart"></i>
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         Shop
                                     </button>
                                 @endif
                                 <button class="btn btn-app validate" type="submit">
-                                    <i class="fa fa-play"></i>
+                                    <i class="fa fa-play" aria-hidden="true"></i>
                                     Validate
                                 </button>
                             </div>
                         </div>
-                        @if($validationLog)
+                        @if(!$validationLog->isEmpty())
                             <div class="ln_solid"></div>
                             <div class="row">
                                 <div class="col-md-6 col-xs-12">
@@ -84,9 +84,9 @@
                                     <div class="x_content">
                                         @if($errors->has('validation'))
                                             {{ $errors->first('validation') }}
-                                        @elseif($validationLog->get('validation', collect())->get('result'))
+                                        @elseif($validationLog->get('validation.result'))
                                             <div class="validation_result_content">
-                                                @foreach ($validationLog->get('validation')->get('result') as $key => $value)
+                                                @foreach ($validationLog->get('validation.result') as $key => $value)
                                                     <div>
                                                         <span class="key">{{ $key }}:</span>
                                                         <span class="value">{{ $value }}</span>

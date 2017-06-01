@@ -26,10 +26,10 @@
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade" id="log_all">
-                    @include('panels.log.table',['log' => $log])
+                    @include('panels.log.table',['logs' => $logs])
                 </div>
                 <div role="tabpanel" class="tab-pane fade active in" id="log_visible">
-                    @include('panels.log.table',['log' => $log->where('hidden', false)])
+                    @include('panels.log.table',['logs' => $logs->where('hidden', false)])
                 </div>
             </div>
         </div>

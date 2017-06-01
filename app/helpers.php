@@ -63,3 +63,11 @@ if (!function_exists('meta_property')) {
         return app('meta')->property($name, $content, $attributes);
     }
 }
+
+if (!function_exists('dot_collect')) {
+
+    function dot_collect($value = null)
+    {
+        return new App\Helpers\DotCollection\DotCollection($value);
+    }
+}

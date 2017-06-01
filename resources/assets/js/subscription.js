@@ -17,7 +17,7 @@
                 Pace.restart();
                 $button.attr('disabled', true);
 
-                if ($buttonIcon.length) {
+                if($buttonIcon.length){
                     $buttonIcon.replaceWith(loading);
                     return;
                 }
@@ -35,23 +35,19 @@
     });
 
     $('button.validate').on('click', function () {
-
         var $button = $(this);
         var buttonHtml = $button.html();
-        var loadingClass = 'fa fa-spinner fa-spin';
+        var loading = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
         var $buttonIcon = $button.find('i');
 
-        if ($buttonIcon.length) {
-            $buttonIcon.attr('class', loadingClass);
-        } else {
-            $button.html('<i class="' + loadingClass + '"></i>' + ' ' + buttonHtml);
+        // $button.attr('disabled', true);
+
+        if($buttonIcon.length){
+            $buttonIcon.replaceWith(loading);
+            return;
         }
 
-
-    });
-
-    $('form.try_and_buy').on('submit', function () {
-        $('button.validate').attr('disabled', true);
+        $button.html(loading + ' ' + buttonHtml);
     });
 
     SyntaxHighlighter.config.bloggerMode = true;

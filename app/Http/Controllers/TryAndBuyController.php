@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Curl\CaseInsensitiveArray;
-use Curl\Curl;
+use App\Http\Controllers\Traits\History;
+use App\Http\Controllers\Traits\Log;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Cache;
@@ -27,34 +26,40 @@ use Validator;
 
 class TryAndBuyController extends Controller
 {
-    protected $log;
-    protected $validationLog;
+    use History,
+        Log;
 
-    protected $lastMethod;
+    protected $storage = 'nlic.try_and_buy';
+    protected $logs;
+    protected $validationLog;
 
     public function __construct()
     {
-        $this->log = collect();
-        $this->validationLog = collect();
+        $this->logs = dot_collect();
+        $this->validationLog = dot_collect();
     }
 
     public function index(Request $request)
     {
-        $histories = $this->getHistories();
-        $history = $this->getHistory($request->get('history'));
+        $history = $this->getHistory($request->get('history'), $this->storage);
+
+        $errors = $history->get('errors');
+        $setup = dot_collect($history->get('setup', $this->createSetup()));
+        $logs = dot_collect($history->get('logs'));
+        $validationLog = dot_collect($history->get('validationLog'));
+        $histories = dot_collect($this->getHistories($this->storage));
 
         $view = view('pages.try_and_buy.index');
 
-        if ($history->get('errors')) {
-            $errors = ($history->get('errors') instanceof Collection) ? $history->get('errors')->toArray() : $history->get('errors');
-            $view->withErrors($errors);
+        if ($errors) {
+            $view->withErrors(($errors instanceof Collection) ? $errors->toArray() : $errors);
         }
 
         return $view
-            ->with('setup', $history->get('setup', $this->createSetup()))
-            ->with('log', $history->get('log'))
-            ->with('validationLog', $history->get('validationLog'))
-            ->with('histories', $this->arrayToCollection($histories));
+            ->with('setup', $setup)
+            ->with('logs', $logs)
+            ->with('validationLog', $validationLog)
+            ->with('histories', $histories);
     }
 
     public function regenerate(Request $request)
@@ -96,7 +101,7 @@ class TryAndBuyController extends Controller
         Cache::put('nlic.auth', ['username' => $request->get('username'), 'password' => $request->get('password')], config('nlic.cache.lifetime'));
 
         //create history
-        $history = $this->createHistory($request->all());
+        $history = $this->createHistory(['setup' => $request->all()]);
 
         //setup context
         $context = new Context();
@@ -268,20 +273,20 @@ class TryAndBuyController extends Controller
 
         } catch (\Exception $exception) {
             //save history
-            $history->put('log', $this->log);
-            $history->put('validationLog', $this->log->last());
+            $history->put('logs', $this->logs);
+            $history->put('validationLog', $this->logs->last());
             $history->put('errors', ['validation' => $exception->getMessage()]);
 
-            $this->saveHistory($history);
+            $this->saveHistory($history, $this->storage);
 
             return redirect()->route('try_and_buy', ['history' => $history->get('id')]);
         }
 
         //save history
-        $history->put('log', $this->log);
+        $history->put('logs', $this->logs);
         $history->put('validationLog', $this->validationLog);
 
-        $this->saveHistory($history);
+        $this->saveHistory($history, $this->storage);
 
         return redirect(route('try_and_buy', ['history' => $history->get('id')]));
     }
@@ -290,7 +295,7 @@ class TryAndBuyController extends Controller
     {
         try {
 
-            $history = $this->getHistory($request->get('history'));
+            $history = $this->getHistory($request->get('history'), $this->storage);
 
             if ($history->isEmpty()) throw new \Exception('History not found');
 
@@ -482,137 +487,12 @@ class TryAndBuyController extends Controller
         }
     }
 
-    protected function getHistory($id)
-    {
-        $histories = collect($this->getHistories());
-
-        return $this->arrayToCollection($histories->where('id', $id)->first());
-    }
-
-    protected function getHistories()
-    {
-        return Cache::get('nlic.try_and_buy', []);
-    }
-
-    protected function createHistory($setup, $log = null, $validationLog = null, $errors = null)
-    {
-        $id = uniqid();
-        return collect([
-            'id' => $id,
-            'date' => Carbon::now(),
-            'setup' => $setup,
-            'log' => $log,
-            'validationLog' => $validationLog,
-            'errors' => $errors
-        ]);
-    }
-
-    protected function saveHistory(Collection $history)
-    {
-        if (!$history->isEmpty()) {
-
-            $histories = collect(Cache::get('nlic.try_and_buy', []));
-
-            if (config('nlic.history.max_items') && $histories->count() >= config('nlic.history.max_items')) {
-                $histories = $histories->splice($histories->count() + 1 - config('nlic.history.max_items'));
-            }
-
-            $histories->push($history);
-            Cache::put('nlic.try_and_buy', $histories->toArray(), config('nlic.history.lifetime'));
-        }
-    }
-
     protected function createSetup()
     {
         $auth = Cache::get('nlic.auth', $this->generate()->only(['username', 'password'])->toArray());
         $setup = $this->generate()->except(['username', 'password'])->toArray();
 
-        return collect($auth + $setup);
-    }
-
-
-    protected function log(NetLicensingCurl $curl, $hidden = false)
-    {
-        $log = [];
-
-        $log['hidden'] = $hidden;
-
-        $log['warning'] = ($curl->httpStatusCode == 400) ? true : false;
-        $log['error'] = $log['warning'] ? false : $curl->error;
-        $log['errorCode'] = $curl->errorCode;
-        $log['errorMessage'] = $curl->errorMessage;
-        $log['baseUrl'] = $curl->baseUrl;
-        $log['url'] = $curl->url;
-        $log['effectiveUrl'] = $curl->effectiveUrl;
-        $log['httpStatusCode'] = $curl->httpStatusCode;
-
-        //set data and query
-        $log['data'] = $curl->data;
-        $log['query'] = $curl->query;
-
-        /**
-         * set request headers and parse method, version and url part
-         * @var  $requestHeaders CaseInsensitiveArray
-         */
-        $requestHeaders = $curl->requestHeaders;
-
-        $requestLine = $requestHeaders['request-line'];
-        $requestLineParts = explode(' ', $requestLine);
-
-        $log['method'] = $requestLineParts[0];
-        $log['urlPart'] = $requestLineParts[1];
-        $log['version'] = $requestLineParts[2];
-
-        $requestHeadersCount = $requestHeaders->count();
-
-        $tmpRequestHeaders = [];
-
-        while ($requestHeadersCount) {
-            $tmpRequestHeaders[$requestHeaders->key()] = $requestHeaders->current();
-            $requestHeaders->next();
-            $requestHeadersCount--;
-        }
-
-        $log['requestHeaders'] = $tmpRequestHeaders;
-
-        /**
-         * set response headers
-         * @var  $responseHeaders CaseInsensitiveArray
-         */
-        $responseHeaders = $curl->responseHeaders;
-
-        $responseHeadersCount = $responseHeaders->count();
-
-        $tmpResponseHeaders = [];
-
-        while ($responseHeadersCount) {
-            $tmpResponseHeaders[$responseHeaders->key()] = $responseHeaders->current();
-            $responseHeaders->next();
-            $responseHeadersCount--;
-        }
-
-        $log['responseHeaders'] = $tmpResponseHeaders;
-        $log['rawResponseHeaders'] = $curl->rawResponseHeaders;
-
-        //set response
-        switch ($curl->requestHeaders['accept']) {
-            case 'application/xml':
-                $dom = new \DOMDocument();
-                $dom->preserveWhiteSpace = FALSE;
-                $dom->loadXML($curl->rawResponse);
-                $dom->formatOutput = TRUE;
-
-                $log['response'] = $dom->saveXml();
-                $log['rawResponse'] = $curl->rawResponse;
-
-                break;
-            default:
-                $log['response'] = $curl->response;
-                $log['rawResponse'] = $curl->rawResponse;
-                break;
-        }
-
-        return $this->log->push($this->arrayToCollection($log))->last();
+        return $auth + $setup;
     }
 
     protected function generate($keys = null)
@@ -637,14 +517,12 @@ class TryAndBuyController extends Controller
         return $generated->only($keys);
     }
 
-    protected function arrayToCollection($array)
+    protected function log(NetLicensingCurl $curl, $hidden = false)
     {
-        if (!$array) return collect();
+        $log = $this->createLog($curl, $hidden);
 
-        foreach ($array as $key => &$value) {
-            if (is_array($value)) $value = $this->arrayToCollection($value);
-        }
+        $this->logs->push($log);
 
-        return collect($array);
+        return $log;
     }
 }
