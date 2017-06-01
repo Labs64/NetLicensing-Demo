@@ -18,6 +18,9 @@
   "dependencies": {
     "gentelella": "^1.4.0",
     "font-awesome": "^4.7.0",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "PACE": "pace#^1.0.2",
+    "SyntaxHighlighter": "^3.0.83",
+    "FooTable": "fooplugins/FooTable#^3.1.4"
   }
 }

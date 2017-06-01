@@ -12,7 +12,7 @@
         @meta
 
         {{--Common App Styles--}}
-        {{ Html::style(mix('assets/app/css/app.css')) }}
+        {{ Html::style(mix('assets/css/default.css')) }}
 
         {{--Styles--}}
         @yield('styles')
@@ -27,8 +27,8 @@
         <div class="container body">
             <div class="main_container">
                 @section('header')
-                    @include('sections.navigation')
-                    @include('sections.header')
+                    @include('includes.navigation')
+                    @include('includes.header')
                 @show
 
                 @yield('left-sidebar')
@@ -48,13 +48,13 @@
                     @yield('content')
                 </div>
                 <footer>
-                    @include('sections.footer')
+                    @include('includes.footer')
                 </footer>
             </div>
         </div>
 
         {{--Common Scripts--}}
-        {{ Html::script(mix('assets/app/js/app.js')) }}
+        {{ Html::script(mix('assets/js/default.js')) }}
 
         {{--Laravel Js Variables--}}
         @tojs
