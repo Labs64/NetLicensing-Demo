@@ -75,7 +75,7 @@
                                             <span class="warning">Validation - Warning</span>
                                         @elseif(!$validationLog->get('valid'))
                                             <i class="fa fa-times error" aria-hidden="true"></i>
-                                            <span class="error">Validation - No valid</span>
+                                            <span class="error">Validation - No Valid</span>
                                         @else
                                             <i class="fa fa-check success" aria-hidden="true"></i>
                                             <span class="success">Validation - Success</span>
