@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div class="media-body">
-                        <a href="{{ route('try_and_buy', ['history' => $history->get('id')]) }}">
+                        <a href="{{ route('subscription', ['history' => $history->get('id')]) }}">
                             @if($history->get('validationLog.error') || $history->get('errors'))
                                 <span class="title error">
                                     Validation - Error

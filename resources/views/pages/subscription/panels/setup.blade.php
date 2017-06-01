@@ -39,7 +39,7 @@
                 </li>
             </ul>
 
-            {{ Form::open(['route' => 'try_and_buy.validate', 'class'=>'form-horizontal form-label-left input_mask try_and_buy']) }}
+            {{ Form::open(['route' => 'subscription.validate', 'class'=>'form-horizontal form-label-left input_mask subscription']) }}
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade {{ !$errors->has('setup') ? 'active in' : '' }}" id="playground">
                         <div class="ln_solid"></div>
@@ -239,32 +239,32 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4>License Template (try)</h4>
+                                            <h4>License Template (1 day)</h4>
                                         </div>
-                                        <div class="col-md-6 {{$errors->has('try_license_template_number') ? 'has-error' : '' }}">
+                                        <div class="col-md-6 {{$errors->has('one_day_license_template_number') ? 'has-error' : '' }}">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     Number
                                                 </span>
-                                                <input name="try_license_template_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('try_license_template_number', $setup->get('try_license_template_number')) }}">
+                                                <input name="one_day_license_template_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('one_day_license_template_number', $setup->get('one_day_license_template_number')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                          <i class="fa fa-refresh" aria-hidden="true"></i>
                                                     </button>
                                                 </span>
                                             </div>
-                                            @if($errors->has('try_license_template_number'))
+                                            @if($errors->has('one_day_license_template_number'))
                                                 <div class="help-block">
-                                                    {{ $errors->first('try_license_template_number') }}
+                                                    {{ $errors->first('one_day_license_template_number') }}
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="col-md-6 {{$errors->has('try_license_template_name') ? 'has-error' : '' }}">
+                                        <div class="col-md-6 {{$errors->has('one_day_license_template_name') ? 'has-error' : '' }}">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     Name
                                                 </span>
-                                                <input name="try_license_template_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('try_license_template_name', $setup->get('try_license_template_name')) }}">
+                                                <input name="one_day_license_template_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('one_day_license_template_name', $setup->get('one_day_license_template_name')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -280,41 +280,41 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4>License Template (buy)</h4>
+                                            <h4>License Template (10 days)</h4>
                                         </div>
-                                        <div class="col-md-6 {{$errors->has('buy_license_template_number') ? 'has-error' : '' }}">
+                                        <div class="col-md-6 {{$errors->has('ten_days_license_template_number') ? 'has-error' : '' }}">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     Number
                                                 </span>
-                                                <input name="buy_license_template_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('buy_license_template_number', $setup->get('buy_license_template_number')) }}">
+                                                <input name="ten_days_license_template_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('ten_days_license_template_number', $setup->get('ten_days_license_template_number')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                          <i class="fa fa-refresh" aria-hidden="true"></i>
                                                     </button>
                                                 </span>
                                             </div>
-                                            @if($errors->has('buy_license_template_number'))
+                                            @if($errors->has('ten_days_license_template_number'))
                                                 <div class="help-block">
-                                                    {{ $errors->first('buy_license_template_number') }}
+                                                    {{ $errors->first('ten_days_license_template_number') }}
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="col-md-6 {{$errors->has('buy_license_template_name') ? 'has-error' : '' }}">
+                                        <div class="col-md-6 {{$errors->has('ten_days_license_template_name') ? 'has-error' : '' }}">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     Name
                                                 </span>
-                                                <input name="buy_license_template_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('buy_license_template_name', $setup->get('buy_license_template_name')) }}">
+                                                <input name="ten_days_license_template_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('ten_days_license_template_name', $setup->get('ten_days_license_template_name')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
                                                     </button>
                                                 </span>
                                             </div>
-                                            @if($errors->has('buy_license_template_name'))
+                                            @if($errors->has('ten_days_license_template_name'))
                                                 <div class="help-block">
-                                                    {{ $errors->first('buy_license_template_name') }}
+                                                    {{ $errors->first('ten_days_license_template_name') }}
                                                 </div>
                                             @endif
                                         </div>

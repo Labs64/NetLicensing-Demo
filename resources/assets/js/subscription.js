@@ -35,19 +35,21 @@
     });
 
     $('button.validate').on('click', function () {
+
         var $button = $(this);
         var buttonHtml = $button.html();
-        var loading = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
+        var loadingClass = 'fa fa-spinner fa-spin';
         var $buttonIcon = $button.find('i');
 
-        // $button.attr('disabled', true);
-
-        if($buttonIcon.length){
-            $buttonIcon.replaceWith(loading);
-            return;
+        if ($buttonIcon.length) {
+            $buttonIcon.attr('class', loadingClass);
+        } else {
+            $button.html('<i class="' + loadingClass + '"></i>' + ' ' + buttonHtml);
         }
+    });
 
-        $button.html(loading + ' ' + buttonHtml);
+    $('form.subscription').on('submit', function () {
+        $('button.validate').attr('disabled', true);
     });
 
     SyntaxHighlighter.config.bloggerMode = true;

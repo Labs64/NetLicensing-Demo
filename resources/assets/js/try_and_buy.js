@@ -46,8 +46,6 @@
         } else {
             $button.html('<i class="' + loadingClass + '"></i>' + ' ' + buttonHtml);
         }
-
-
     });
 
     $('form.try_and_buy').on('submit', function () {

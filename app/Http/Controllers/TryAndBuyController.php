@@ -251,7 +251,7 @@ class TryAndBuyController extends Controller
             $validationResult = collect($validations->get($productModule->getNumber(), []));
 
             $this->validationLog = $this->log(NetLicensingService::getInstance()->curl());
-            $this->validationLog->put('failed', !$validationResult->get('valid'));
+            $this->validationLog->put('valid', $validationResult->get('valid'));
 
             $validation = collect();
             $validation->put('result', $validationResult->toArray());
@@ -299,7 +299,7 @@ class TryAndBuyController extends Controller
 
             if ($history->isEmpty()) throw new \Exception('History not found');
 
-            $request->request->add($history->get('setup')->toArray());
+            $request->request->add($history->get('setup'));
             $request->request->remove('history');
 
             return $this->nlicValidate($request);
