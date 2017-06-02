@@ -26,7 +26,7 @@
                 @include('pages.try_and_buy.panels.setup', ['setup' => $setup, 'errors' => $errors , 'validationLog' => $validationLog])
             </div>
             @if(!$histories->isEmpty())
-                <div class="col-md-4 col-xs-12">
+                <div class="col-md-6 col-xs-12">
                     @include('pages.try_and_buy.panels.history', ['histories' => $histories->sortByDesc('date')])
                 </div>
             @endif

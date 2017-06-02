@@ -12,7 +12,7 @@
                    aria-expanded="false"><i class="fa fa-wrench"></i></a>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="{{ route('try_and_buy.regenerate') }}">
+                        <a href="{{ route('subscription.regenerate') }}">
                             <i class="fa fa-refresh" aria-hidden="true"></i>
                             Generate All
                         </a>
