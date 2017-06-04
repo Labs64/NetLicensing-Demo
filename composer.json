@@ -2,7 +2,7 @@
     "name": "labs64/netlicensing-demo",
     "description": "Labs64 NetLicensing Demo",
     "type": "project",
-    "keywords": ["php", "framework", "laravel", "laravel5", "admin", "theme", "starter", "bootstrap", "NetLicensing", "docker", "template", "social-login", "nodejs"],
+    "keywords": ["NetLicensing", "Demo", "try-and-buy", "subscription", "RESTful", "API", "netlicensing.io", "license", "management", "docker"],
     "homepage": "https://github.com/Labs64/NetLicensing-Demo",
     "license": "MIT",
     "authors": [
