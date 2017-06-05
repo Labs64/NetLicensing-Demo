@@ -10,6 +10,6 @@
     </tr>
     </thead>
     <tbody>
-        @each('panels.log.item', $logs, 'log');
+        @each('panels.log.item', $logs, 'log')
     </tbody>
 </table>
