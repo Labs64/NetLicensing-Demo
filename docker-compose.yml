@@ -10,26 +10,27 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE=laravel_boilerplate
+      - MYSQL_DATABASE=netlicensing_demo
       - MYSQL_USER=root
       - MYSQL_PASSWORD=secret
-  laravel-env:
-    build: ./dockerfiles/laravel-env
-    container_name: laravel-env
+  netlicensing-demo:
+    build: ./dockerfiles
+    container_name: netlicensing-demo
     depends_on:
       - mysql
     volumes:
-      - ".:/var/www/laravel-boilerplate"
-      - "./dockerfiles/config/laravel-env/php.ini:/usr/local/etc/php/php.ini"
-      - "./dockerfiles/config/laravel-env/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini"
-    #restart: always
+      - ".:/var/www/netlicensing-demo"
+      - "./dockerfiles/config/php/php-fpm.conf:/etc/php-fpm.conf"
+      - "./dockerfiles/config/php/www.conf:/etc/php-fpm.d/www.conf"
+      - "./dockerfiles/config/php/php.ini:/usr/local/etc/php/php.ini"
+      - "./dockerfiles/config/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini"
   nginx:
     image: nginx:latest
     container_name: nginx
     depends_on:
-      - laravel-env
+      - netlicensing-demo
     volumes:
-      - ".:/var/www/laravel-boilerplate"
+      - ".:/var/www/netlicensing-demo"
       - "./dockerfiles/config/nginx/default.conf:/etc/nginx/conf.d/default.conf"
     ports:
       - "80:80"
