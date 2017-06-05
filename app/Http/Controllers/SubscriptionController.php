@@ -248,7 +248,7 @@ class SubscriptionController extends Controller
             $validations = collect($validationResults->getValidations());
             $validationResult = collect($validations->get($productModule->getNumber(), []));
 
-            $this->validationLog = $this->log(NetLicensingService::getInstance()->curl());
+            $this->validationLog = $this->log(NetLicensingService::getInstance()->lastCurlInfo());
             $this->validationLog->put('valid', ($validationResult->get('valid', 'false') == 'false') ? false : true);
 
             $validation = collect();
@@ -263,7 +263,7 @@ class SubscriptionController extends Controller
 
             $token = TokenService::create($context, $token);
 
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             $validation->put('shop', $token->toArray());
 
@@ -318,15 +318,15 @@ class SubscriptionController extends Controller
             $product = ProductService::get($context, $number);
 
             //save to log product get
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $product;
 
         } catch (\Exception $exception) {
 
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
-            switch (NetLicensingService::getInstance()->curl()->httpStatusCode) {
+            switch (NetLicensingService::getInstance()->lastCurlInfo()->httpStatusCode) {
                 case '400':
                     return null;
                     break;
@@ -343,13 +343,13 @@ class SubscriptionController extends Controller
             $product = ProductService::create($context, $product);
 
             //save to log product create
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $product;
 
         } catch (\Exception $exception) {
             //set error to log
-            $this->log(NetLicensingService::getInstance()->curl());
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo());
 
             throw $exception;
         }
@@ -361,15 +361,15 @@ class SubscriptionController extends Controller
             $productModule = ProductModuleService::get($context, $number);
 
             //save to log product get
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $productModule;
 
         } catch (\Exception $exception) {
 
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
-            switch (NetLicensingService::getInstance()->curl()->httpStatusCode) {
+            switch (NetLicensingService::getInstance()->lastCurlInfo()->httpStatusCode) {
                 case '400':
                     return null;
                     break;
@@ -386,13 +386,13 @@ class SubscriptionController extends Controller
             $productModule = ProductModuleService::create($context, $productNumber, $productModule);
 
             //save to log product create
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $productModule;
 
         } catch (\Exception $exception) {
             //set error to log
-            $this->log(NetLicensingService::getInstance()->curl());
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo());
 
             throw $exception;
         }
@@ -404,15 +404,15 @@ class SubscriptionController extends Controller
             $licenseTemplate = LicenseTemplateService::get($context, $number);
 
             //save to log product get
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $licenseTemplate;
 
         } catch (\Exception $exception) {
 
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
-            switch (NetLicensingService::getInstance()->curl()->httpStatusCode) {
+            switch (NetLicensingService::getInstance()->lastCurlInfo()->httpStatusCode) {
                 case '400':
                     return null;
                     break;
@@ -429,13 +429,13 @@ class SubscriptionController extends Controller
             $licenseTemplate = LicenseTemplateService::create($context, $productModuleNumber, $licenseTemplate);
 
             //save to log product create
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $licenseTemplate;
 
         } catch (\Exception $exception) {
             //set error to log
-            $this->log(NetLicensingService::getInstance()->curl());
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo());
 
             throw $exception;
         }
@@ -447,15 +447,15 @@ class SubscriptionController extends Controller
             $licensee = LicenseeService::get($context, $number);
 
             //save to log product get
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $licensee;
 
         } catch (\Exception $exception) {
 
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
-            switch (NetLicensingService::getInstance()->curl()->httpStatusCode) {
+            switch (NetLicensingService::getInstance()->lastCurlInfo()->httpStatusCode) {
                 case '400':
                     return null;
                     break;
@@ -473,13 +473,13 @@ class SubscriptionController extends Controller
             $licensee = LicenseeService::create($context, $productNumber, $licensee);
 
             //save to log product create
-            $this->log(NetLicensingService::getInstance()->curl(), true);
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
             return $licensee;
 
         } catch (\Exception $exception) {
             //set error to log
-            $this->log(NetLicensingService::getInstance()->curl());
+            $this->log(NetLicensingService::getInstance()->lastCurlInfo());
 
             throw $exception;
         }
@@ -515,9 +515,9 @@ class SubscriptionController extends Controller
         return $generated->only($keys);
     }
 
-    protected function log(NetLicensingCurl $curl, $hidden = false)
+    protected function log($curlInfo, $hidden = false)
     {
-        $log = $this->createLog($curl, $hidden);
+        $log = $this->createLog($curlInfo, $hidden);
 
         $this->logs->push($log);
 

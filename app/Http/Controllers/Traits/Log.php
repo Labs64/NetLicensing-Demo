@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Traits;
 
 use Curl\CaseInsensitiveArray;
-use NetLicensing\NetLicensingCurl;
 
 trait Log
 {
-    protected function createLog(NetLicensingCurl $curl, $hidden = false)
+    protected function createLog($curlInfo, $hidden = false)
     {
+
         $log = dot_collect();
 
         $log->put('hidden', $hidden);
 
-        $log->put('error', $curl->error);
-        $log->put('errorCode', $curl->errorCode);
-        $log->put('errorMessage', $curl->errorMessage);
+        $log->put('error', $curlInfo->error);
+        $log->put('errorCode', $curlInfo->errorCode);
+        $log->put('errorMessage', $curlInfo->errorMessage);
 
-        switch ($curl->httpStatusCode) {
+        switch ($curlInfo->httpStatusCode) {
             case 400:
                 $log->put('warning', true);
                 $log->put('error', false);
@@ -27,21 +27,20 @@ trait Log
                 break;
         }
 
-
-        $log->put('baseUrl', $curl->baseUrl);
-        $log->put('url', $curl->url);
-        $log->put('effectiveUrl', $curl->effectiveUrl);
-        $log->put('httpStatusCode', $curl->httpStatusCode);
+        $log->put('baseUrl', $curlInfo->baseUrl);
+        $log->put('url', $curlInfo->url);
+        $log->put('effectiveUrl', $curlInfo->effectiveUrl);
+        $log->put('httpStatusCode', $curlInfo->httpStatusCode);
 
         //set data and query
-        $log->put('data', $curl->data);
-        $log->put('query', $curl->query);
+        $log->put('data', $curlInfo->data);
+        $log->put('query', $curlInfo->query);
 
         /**
          * set request headers and parse method, version and url part
          * @var  $requestHeaders CaseInsensitiveArray
          */
-        $requestHeaders = $curl->requestHeaders;
+        $requestHeaders = $curlInfo->requestHeaders;
 
         $requestLine = $requestHeaders['request-line'];
         $requestLineParts = explode(' ', $requestLine);
@@ -66,7 +65,7 @@ trait Log
          * set response headers
          * @var  $responseHeaders CaseInsensitiveArray
          */
-        $responseHeaders = $curl->responseHeaders;
+        $responseHeaders = $curlInfo->responseHeaders;
 
         $responseHeadersCount = $responseHeaders->count();
 
@@ -79,23 +78,23 @@ trait Log
         }
 
         $log->put('responseHeaders', $tmpResponseHeaders);
-        $log->put('rawResponseHeaders', $curl->rawResponseHeaders);
+        $log->put('rawResponseHeaders', $curlInfo->rawResponseHeaders);
 
         //set response
-        switch ($curl->requestHeaders['accept']) {
+        switch ($curlInfo->requestHeaders['accept']) {
             case 'application/xml':
                 $dom = new \DOMDocument();
                 $dom->preserveWhiteSpace = FALSE;
-                $dom->loadXML($curl->rawResponse);
+                $dom->loadXML($curlInfo->rawResponse);
                 $dom->formatOutput = TRUE;
 
                 $log->put('response', $dom->saveXml());
-                $log->put('rawResponse', $curl->rawResponse);
+                $log->put('rawResponse', $curlInfo->rawResponse);
 
                 break;
             default:
-                $log->put('response', $curl->response);
-                $log->put('rawResponse', $curl->rawResponse);
+                $log->put('response', $curlInfo->response);
+                $log->put('rawResponse', $curlInfo->rawResponse);
                 break;
         }
 
