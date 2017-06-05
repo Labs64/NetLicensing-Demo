@@ -12,7 +12,7 @@
     </td>
     <td>{{ $log->get('method') }}</td>
     <td>{{ $log->get('urlPart') }}</td>
-    <td>{{ $log->get('requestHeaders',['Host'=>''])['Host'] }}</td>
+    <td>{{ $log->get('requestHeaders.Host')}}</td>
     <td>
         <div class="dashboard-widget-content">
             <ul class="list-unstyled timeline widget">
