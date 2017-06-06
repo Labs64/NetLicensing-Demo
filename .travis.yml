@@ -11,9 +11,6 @@ env:
 before_script:
   - dpkg -l
   - cp .env.example .env
-  - mysql -e 'create database netlicensing_demo;'
-  - mysql -u root -h 127.0.0.1 -e "SHOW DATABASES"
-  - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('secret')"
   - composer install --prefer-dist --no-interaction
   - php artisan key:generate
   - cat .env
