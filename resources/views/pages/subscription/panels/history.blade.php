@@ -35,7 +35,7 @@
                                 </span>
                             @elseif(!$history->get('validationLog')->get('valid'))
                                 <span class="title error">
-                                    Validation - No Valid
+                                    Validation - Not valid
                                 </span>
                             @elseif($history->get('validationLog')->get('warning'))
                                 <span class="title warning">

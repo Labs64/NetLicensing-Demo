@@ -2,18 +2,18 @@
     "name": "labs64/netlicensing-demo",
     "description": "Labs64 NetLicensing Demo",
     "type": "project",
-    "keywords": ["NetLicensing", "Demo", "try-and-buy", "subscription", "RESTful", "API", "netlicensing.io", "license", "management", "docker"],
+    "keywords": ["Labs64", "NetLicensing", "Demo", "try-and-buy", "subscription", "RESTful", "API", "netlicensing.io", "license", "management", "docker"],
     "homepage": "https://github.com/Labs64/NetLicensing-Demo",
     "license": "MIT",
     "authors": [
         {
             "name": "Labs64 GmbH",
-            "email": "info@labs64.com",
-            "homepage": "http://www.labs64.com"
+            "email": "netlicensing@labs64.com",
+            "homepage": "http://netlicensing.io"
         }
     ],
     "support": {
-        "email": "info@labs64.com",
+        "email": "netlicensing@labs64.com",
         "issues": "https://github.com/Labs64/NetLicensing-Demo/issues",
         "wiki": "https://github.com/Labs64/NetLicensing-Demo",
         "source": "https://github.com/Labs64/NetLicensing-Demo",

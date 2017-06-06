@@ -19,8 +19,8 @@ class UsersRolesSeeder extends Seeder
         $this->truncate('users_roles');
 
         $data = [
-            'admin@admin.com' => ['administrator', 'authenticated'],
-            'demo@Demo.com' => 'authenticated',
+            'admin.netlicensing@labs64.com' => ['administrator', 'authenticated'],
+            'demo.netlicensing@labs64.com' => 'authenticated',
         ];
 
 
