@@ -1,4 +1,4 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><img src="http://netlicensing.io/img/labs64-logo.png"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/Labs64/NetLicensing-Demo"><img src="https://travis-ci.org/Labs64/NetLicensing-Demo.svg" alt="Build Status"></a>

@@ -18,7 +18,6 @@ before_script:
   - npm install
   - bower install
   - npm run dev
-  - php artisan migrate --seed --no-interaction
   - ls -la
 
 script:
