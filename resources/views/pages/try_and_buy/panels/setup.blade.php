@@ -24,7 +24,6 @@
     </div>
     <div class="x_content">
         <div role="tabpanel" data-example-id="togglable-tabs">
-
             <ul class="nav nav-tabs bar_tabs" role="tablist">
                 <li role="presentation" class="{{ !$errors->has('setup') ? 'active' : '' }}">
                     <a href="#playground" role="tab" data-toggle="tab" aria-expanded="false">
@@ -45,7 +44,7 @@
                     <div role="tabpanel" class="tab-pane fade {{ !$errors->has('setup') ? 'active in' : '' }}" id="playground">
                         <div class="ln_solid"></div>
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-6">
                                 @if($validationLog->get('validation.shop'))
                                     <a href="{{ $validationLog->get('validation.shop.shopURL')}}" class="btn btn-app">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -66,7 +65,7 @@
                         @if(!$validationLog->isEmpty())
                             <div class="ln_solid"></div>
                             <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-xs-12">
                                     <h2>
                                         @if($validationLog->get('error') || $errors->has('validation'))
                                             <i class="fa fa-times error" aria-hidden="true"></i>
@@ -76,7 +75,7 @@
                                             <span class="warning">Validation - Warning</span>
                                         @elseif(!$validationLog->get('valid'))
                                             <i class="fa fa-times error" aria-hidden="true"></i>
-                                            <span class="error">Validation - No Valid</span>
+                                            <span class="error">Validation - Not valid</span>
                                         @else
                                             <i class="fa fa-check success" aria-hidden="true"></i>
                                             <span class="success">Validation - Success</span>
@@ -144,15 +143,16 @@
                             </div>
                             <div class="col-md-12">
                                 <small class="description">
-                                    Login name and password of the user sending the requests.
+                                    Login name and password for the NetLicensing vendor account.
                                 </small>
                             </div>
                         </div>
                         <div class="ln_solid"></div>
+
                         <div class="accordion" role="tablist">
                             <div class="panel">
                                 <a href="#additionSetup" class="{{  !$errors->has('setup') ? 'collapsed' : '' }}" role="button" data-toggle="collapse" aria-expanded="false">
-                                    <i class="fa fa-chevron" aria-hidden="true"></i><span class="h4">Addition settings</span>
+                                    <i class="fa fa-chevron" aria-hidden="true"></i><span class="h4">Additional settings</span>
                                 </a>
                                 <div class="panel-collapse collapse {{  $errors->has('setup') ? 'collapse in' : '' }}" role="tabpanel" id="additionSetup" aria-expanded="false">
                                     <div class="row">

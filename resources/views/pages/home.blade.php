@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="row">
-            <a class="animated flipInY col-lg-4 col-md-6 col-sm-6 col-xs-12 licensing_model" href="{{ route('try_and_buy') }}">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <a class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12 licensing_model" href="{{ route('try_and_buy') }}">
                 <div class="tile-stats">
                     <div class="icon">
                         <img src="http://netlicensing.io/img/licensing-model/licensing-model-try-and-buy.png">
@@ -18,7 +19,7 @@
                     </p>
                 </div>
             </a>
-            <a class="animated flipInY col-lg-4 col-md-6 col-sm-6 col-xs-12 licensing_model" href="{{ route('subscription') }}">
+            <a class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12 licensing_model" href="{{ route('subscription') }}">
                 <div class="tile-stats">
                     <div class="icon">
                         <img src="http://netlicensing.io/img/licensing-model/licensing-model-subscription.png">
@@ -34,7 +35,6 @@
                     </p>
                 </div>
             </a>
+        </div>
     </div>
 @endsection
-
-
