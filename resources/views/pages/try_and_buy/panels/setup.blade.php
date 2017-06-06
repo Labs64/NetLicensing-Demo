@@ -24,10 +24,11 @@
     </div>
     <div class="x_content">
         <div role="tabpanel" data-example-id="togglable-tabs">
+
             <ul class="nav nav-tabs bar_tabs" role="tablist">
                 <li role="presentation" class="{{ !$errors->has('setup') ? 'active' : '' }}">
                     <a href="#playground" role="tab" data-toggle="tab" aria-expanded="false">
-                        <i class="fa fa-play" aria-hidden="true"></i>
+                        <i class="fa fa-gamepad" aria-hidden="true"></i>
                         Playground
                     </a>
                 </li>
@@ -44,7 +45,7 @@
                     <div role="tabpanel" class="tab-pane fade {{ !$errors->has('setup') ? 'active in' : '' }}" id="playground">
                         <div class="ln_solid"></div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 @if($validationLog->get('validation.shop'))
                                     <a href="{{ $validationLog->get('validation.shop.shopURL')}}" class="btn btn-app">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -65,7 +66,7 @@
                         @if(!$validationLog->isEmpty())
                             <div class="ln_solid"></div>
                             <div class="row">
-                                <div class="col-md-6 col-xs-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <h2>
                                         @if($validationLog->get('error') || $errors->has('validation'))
                                             <i class="fa fa-times error" aria-hidden="true"></i>
@@ -148,7 +149,6 @@
                             </div>
                         </div>
                         <div class="ln_solid"></div>
-
                         <div class="accordion" role="tablist">
                             <div class="panel">
                                 <a href="#additionSetup" class="{{  !$errors->has('setup') ? 'collapsed' : '' }}" role="button" data-toggle="collapse" aria-expanded="false">

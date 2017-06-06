@@ -4,7 +4,7 @@
         <th>Status</th>
         <th>Method</th>
         <th>Url</th>
-        <th>Host</th>
+        <th data-breakpoints="xs">Host</th>
         <th data-breakpoints="all" data-title="Request">Headers</th>
         <th data-breakpoints="all" data-title="Response">Response</th>
     </tr>

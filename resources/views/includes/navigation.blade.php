@@ -13,6 +13,7 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
+                <h3>Licensing Models</h3>
                 <ul class="nav side-menu">
                     <li>
                         <a href="{{ route('home') }}">
@@ -30,6 +31,29 @@
                         <a href="{{ route('subscription') }}">
                             <i class="fa fa-hourglass-half" aria-hidden="true"></i>
                             {{ __('views.sections.navigation.menu_2') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu_section">
+                <h3>Useful</h3>
+                <ul class="nav side-menu">
+                    <li>
+                        <a href="http://io.labs64.com/NetLicensing-API/">
+                            <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                            API Test Center
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.labs64.de/confluence/pages/viewpage.action?pageId=11010215">
+                            <i class="fa fa-code" aria-hidden="true"></i>
+                            RESTful
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://go.netlicensing.io/console/v2/?lc=4b566c7e20&source=lmbox001">
+                            <i class="fa fa-tachometer" aria-hidden="true"></i>
+                            Live demo
                         </a>
                     </li>
                 </ul>
