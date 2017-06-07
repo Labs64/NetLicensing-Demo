@@ -34,7 +34,9 @@
         {{--Log Table--}}
         @if(!$logs->isEmpty())
             <div class="col-md-12 col-sm-12 col-xs-12">
-                @include('panels.log.panel',['log' => $logs])
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    @include('panels.log.panel',['log' => $logs])
+                </div>
             </div>
         @endif
     </div>

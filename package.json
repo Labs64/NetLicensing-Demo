@@ -11,13 +11,18 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "bootstrap": "^3.3.7",
     "bootstrap-sass": "^3.3.7",
-    "bower": "^1.8.0",
     "clean-webpack-plugin": "^0.1.16",
     "cross-env": "^3.2.3",
+    "font-awesome": "^4.7.0",
+    "footable": "git+https://steveush@github.com/fooplugins/FooTable.git#3.1.4",
+    "gentelella": "git+https://github.com/puikinsh/gentelella.git#1.4.0",
     "jquery": "^3.2.1",
     "laravel-mix": "0.*",
     "lodash": "^4.17.4",
+    "pace-progress": "^1.0.2",
+    "syntaxhighlighter": "^3.0.90",
     "vue": "^2.1.10"
   }
 }

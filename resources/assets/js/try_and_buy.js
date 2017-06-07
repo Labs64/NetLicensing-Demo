@@ -52,12 +52,6 @@
         $('button.validate').attr('disabled', true);
     });
 
-    SyntaxHighlighter.config.bloggerMode = true;
-    SyntaxHighlighter.defaults['gutter'] = false;
-    SyntaxHighlighter.defaults['smart-tabs'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 2;
-    SyntaxHighlighter.all();
-
     $('.footable').footable();
 
 })(jQuery);
