@@ -51,7 +51,6 @@ mix.copy([
 
 mix.scripts([
     'node_modules/syntaxhighlighter/dist/syntaxhighlighter.js',
-    'node_modules/syntaxhighlighter/src/js/shCore.js',
     'node_modules/syntaxhighlighter/src/js/shBrushXml.js',
     'node_modules/footable/compiled/footable.min.js',
     'resources/assets/js/try_and_buy.js'
@@ -64,7 +63,6 @@ mix.styles([
 
 mix.scripts([
     'node_modules/syntaxhighlighter/dist/syntaxhighlighter.js',
-    'node_modules/syntaxhighlighter/src/js/shCore.js',
     'node_modules/syntaxhighlighter/src/js/shBrushXml.js',
     'node_modules/footable/compiled/footable.min.js',
     'resources/assets/js/subscription.js'
