@@ -36,24 +36,30 @@
                 </ul>
             </div>
             <div class="menu_section">
-                <h3>Useful</h3>
+                <h3>Useful Links</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="http://io.labs64.com/NetLicensing-API/">
+                        <a href="https://go.netlicensing.io/console/v2/?lc=4b566c7e20&source=lmbox001" target="_blank">
                             <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                            Live demo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.labs64.de/confluence/x/pwCo" target="_blank">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            RESTful API
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://io.labs64.com/NetLicensing-API/" target="_blank">
+                            <i class="fa fa-code" aria-hidden="true"></i>
                             API Test Center
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.labs64.de/confluence/pages/viewpage.action?pageId=11010215">
-                            <i class="fa fa-code" aria-hidden="true"></i>
-                            RESTful
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://go.netlicensing.io/console/v2/?lc=4b566c7e20&source=lmbox001">
-                            <i class="fa fa-tachometer" aria-hidden="true"></i>
-                            Live demo
+                        <a href="http://netlicensing.io/licensing-models/" target="_blank">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            Licensing Models
                         </a>
                     </li>
                 </ul>
