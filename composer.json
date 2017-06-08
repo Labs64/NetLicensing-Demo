@@ -21,7 +21,7 @@
     },
     "require": {
         "php": ">=5.6.4",
-        "Labs64/NetLicensingClient-php": "dev-pre-2.3.7",
+        "Labs64/NetLicensingClient-php": "~2.3.7",
         "arcanedev/log-viewer": "~4.0",
         "arcanedev/no-captcha": "~3.0",
         "creativeorange/gravatar": "~1.0",
