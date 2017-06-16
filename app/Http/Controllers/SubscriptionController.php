@@ -131,7 +131,7 @@ class SubscriptionController extends Controller
 
             //validate product
             if (!$product->getActive()) {
-                throw new \Exception('Product have inactive state');
+                throw new \Exception('Product has inactive state');
             }
 
             //get product module
@@ -151,15 +151,15 @@ class SubscriptionController extends Controller
 
             //validate product module
             if (!$productModule->getActive()) {
-                throw new \Exception('Product Module have inactive state');
+                throw new \Exception('Product Module has inactive state');
             }
 
             if ($productModule->productNumber != $product->getNumber()) {
-                throw new \Exception('Product Module have wrong product number');
+                throw new \Exception('Product Module has wrong product number');
             }
 
             if ($productModule->getLicensingModel() != 'Subscription') {
-                throw new \Exception('Product Module have wrong licensing model');
+                throw new \Exception('Product Module has wrong licensing model');
             }
 
 
@@ -176,18 +176,18 @@ class SubscriptionController extends Controller
                 $oneDayLicenseTemplate->setLicenseType('TIMEVOLUME');
                 $oneDayLicenseTemplate->setTimeVolume(1);
                 $oneDayLicenseTemplate->setCurrency('EUR');
-                $oneDayLicenseTemplate->setPrice(0);
+                $oneDayLicenseTemplate->setPrice(1);
 
                 $oneDayLicenseTemplate = $this->createLicenseTemplate($context, $productModule->getNumber(), $oneDayLicenseTemplate);
             }
 
             //validate license template
             if (!$oneDayLicenseTemplate->getActive()) {
-                throw new \Exception('License Template (1 day) have inactive state');
+                throw new \Exception('License Template (1 day) has inactive state');
             }
 
             if ($oneDayLicenseTemplate->productModuleNumber != $productModule->getNumber()) {
-                throw new \Exception('License Template (1 day) have wrong product module number');
+                throw new \Exception('License Template (1 day) has wrong product module number');
             }
 
             //get buy license template
@@ -198,7 +198,7 @@ class SubscriptionController extends Controller
 
                 $tenDaysLicenseTemplate = new LicenseTemplate();
                 $tenDaysLicenseTemplate->setNumber($request->get('ten_days_license_template_number'));
-                $tenDaysLicenseTemplate->setName($request->get('ten_days_license_template_number'));
+                $tenDaysLicenseTemplate->setName($request->get('ten_days_license_template_name'));
                 $tenDaysLicenseTemplate->setActive(true);
                 $tenDaysLicenseTemplate->setLicenseType('TIMEVOLUME');
                 $tenDaysLicenseTemplate->setTimeVolume(10);
@@ -210,11 +210,11 @@ class SubscriptionController extends Controller
 
             //validate license template
             if (!$tenDaysLicenseTemplate->getActive()) {
-                throw new \Exception('License Template (10 days) have inactive state');
+                throw new \Exception('License Template (10 days) has inactive state');
             }
 
             if ($tenDaysLicenseTemplate->productModuleNumber != $productModule->getNumber()) {
-                throw new \Exception('License Template (10 days) have wrong product module number');
+                throw new \Exception('License Template (10 days) has wrong product module number');
             }
 
             //get licensee
@@ -232,11 +232,11 @@ class SubscriptionController extends Controller
 
             //validate licensee
             if (!$licensee->getActive()) {
-                throw new \Exception('Licensee have inactive state');
+                throw new \Exception('Licensee has inactive state');
             }
 
             if ($licensee->productNumber != $product->getNumber()) {
-                throw new \Exception('Licensee have wrong product number');
+                throw new \Exception('Licensee has wrong product number');
             }
 
             //validate

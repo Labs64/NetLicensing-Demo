@@ -131,7 +131,7 @@ class TryAndBuyController extends Controller
 
             //validate product
             if (!$product->getActive()) {
-                throw new \Exception('Product have inactive state');
+                throw new \Exception('Product has inactive state');
             }
 
             //get product module
@@ -152,15 +152,15 @@ class TryAndBuyController extends Controller
 
             //validate product module
             if (!$productModule->getActive()) {
-                throw new \Exception('Product Module have inactive state');
+                throw new \Exception('Product Module has inactive state');
             }
 
             if ($productModule->productNumber != $product->getNumber()) {
-                throw new \Exception('Product Module have wrong product number');
+                throw new \Exception('Product Module has wrong product number');
             }
 
             if ($productModule->getLicensingModel() != 'TryAndBuy') {
-                throw new \Exception('Product Module have wrong licensing model');
+                throw new \Exception('Product Module has wrong licensing model');
             }
 
 
@@ -186,11 +186,11 @@ class TryAndBuyController extends Controller
 
             //validate license template
             if (!$tryLicenseTemplate->getActive()) {
-                throw new \Exception('License Template (try) have inactive state');
+                throw new \Exception('License Template (try) has inactive state');
             }
 
             if ($tryLicenseTemplate->productModuleNumber != $productModule->getNumber()) {
-                throw new \Exception('License Template (try) have wrong product module number');
+                throw new \Exception('License Template (try) has wrong product module number');
             }
 
             //get buy license template
@@ -212,11 +212,11 @@ class TryAndBuyController extends Controller
 
             //validate license template
             if (!$buyLicenseTemplate->getActive()) {
-                throw new \Exception('License Template (buy) have inactive state');
+                throw new \Exception('License Template (buy) has inactive state');
             }
 
             if ($buyLicenseTemplate->productModuleNumber != $productModule->getNumber()) {
-                throw new \Exception('License Template (buy) have wrong product module number');
+                throw new \Exception('License Template (buy) has wrong product module number');
             }
 
             //get licensee
@@ -234,11 +234,11 @@ class TryAndBuyController extends Controller
 
             //validate licensee
             if (!$licensee->getActive()) {
-                throw new \Exception('Licensee have inactive state');
+                throw new \Exception('Licensee has inactive state');
             }
 
             if ($licensee->productNumber != $product->getNumber()) {
-                throw new \Exception('Licensee have wrong product number');
+                throw new \Exception('Licensee has wrong product number');
             }
 
             //validate
