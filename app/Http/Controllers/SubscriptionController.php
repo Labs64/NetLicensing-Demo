@@ -259,7 +259,9 @@ class SubscriptionController extends Controller
             $token->setTokenType('SHOP');
             $token->setLicenseeNumber($licensee->getNumber());
             $token->setSuccessURL(route('subscription.shop_success', ['history' => $history->get('id')]));
+            $token->setSuccessURLTitle('Return to ' . config('app.name'));
             $token->setCancelURL(route('subscription.shop_cancel', ['history' => $history->get('id')]));
+            $token->setCancelURLTitle('Cancel and return to ' . config('app.name'));
 
             $token = TokenService::create($context, $token);
 
