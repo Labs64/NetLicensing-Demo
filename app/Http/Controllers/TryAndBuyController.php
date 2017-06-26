@@ -505,15 +505,15 @@ class TryAndBuyController extends Controller
             'username' => config('nlic.auth.username'),
             'password' => config('nlic.auth.password'),
             'product_number' => $faker->bothify('P-########'),
-            'product_name' => $faker->words(2, true),
+            'product_name' => 'Try & Buy demo product',
             'product_module_number' => $faker->bothify('PM-########'),
-            'product_module_name' => $faker->words(2, true),
+            'product_module_name' => 'Module licensed under Try & Buy licensing model',
             'try_license_template_number' => $faker->bothify('LT-########'),
-            'try_license_template_name' => $faker->words(2, true),
+            'try_license_template_name' => '1-day free evaluation',
             'buy_license_template_number' => $faker->bothify('LT-########'),
-            'buy_license_template_name' => $faker->words(2, true),
+            'buy_license_template_name' => 'Full featured license',
             'licensee_number' => $faker->bothify('L-########'),
-            'licensee_name' => $faker->words(2, true),
+            'licensee_name' => 'Licensee: ' . $faker->words(2, true),
         ]);
 
         return $generated->only($keys);
