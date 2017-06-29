@@ -79,13 +79,16 @@ class SubscriptionController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
             'use_api_key' => 'boolean',
-            'api_key' => 'required_with:use_api_key|string',
             'product_number' => 'required|string',
             'product_module_number' => 'required|string',
             'one_day_license_template_number' => 'required|string',
             'ten_days_license_template_number' => 'required|string',
             'licensee_number' => 'required|string',
         ]);
+
+        $validator->sometimes('api_key', 'required|string', function ($input) {
+            return ($input['use_api_key']);
+        });
 
         //validate $request inputs
         if ($validator->fails()) {
