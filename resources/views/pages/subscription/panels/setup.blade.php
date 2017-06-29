@@ -174,6 +174,11 @@
                                     </span>
                                         <input name="api_key" class="form-control" type="text" placeholder="Api Key"
                                                value="{{  old('api_key', $setup->get('api_key')) }}">
+                                        <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary generate">
+                                            Reset
+                                        </button>
+                                    </span>
                                     </div>
                                     @if($errors->has('api_key'))
                                         <div class="help-block">
