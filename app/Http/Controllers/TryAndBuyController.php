@@ -517,7 +517,7 @@ class TryAndBuyController extends Controller
         $setup = $this->generate()->except(['username', 'password'])->toArray();
 
         //default connection type
-        $setup['use_api_key'] = config('nlic.defaults.use_api_key_for_validation_and_token');
+        $setup['use_api_key'] = config('nlic.defaults.use_api_key');
 
         return $auth + $setup;
     }

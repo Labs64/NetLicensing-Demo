@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <small class="description">
-                                        Login name and password for the NetLicensing vendor account.
+                                        Login name and password for the NetLicensing vendor account
                                     </small>
                                 </div>
                             </div>
@@ -158,8 +158,8 @@
                                 'data-toggle'=>'toggle',
                                 'data-width'=>'200',
                                 'data-height'=>'34',
-                                 'data-on'=>'Validate by Api Key',
-                                 'data-off'=>'Validate by Basic auth',
+                                'data-on'=>'Validate using API Key',
+                                'data-off'=>'Validate using Basic Auth',
                                 'data-onstyle'=>'success',
                                 'data-offstyle'=>'warning',
                                 'autocomplete'=>'off'
@@ -167,12 +167,12 @@
                                 </div>
                             </div>
                             <div class="security_api_key @if(old('use_api_key', $setup->get('use_api_key'))) active @endif">
-                                <div class="col-md-6 {{$errors->has('api_key') ? 'has-error' : '' }}">
+                                <div class="col-md-12 {{$errors->has('api_key') ? 'has-error' : '' }}">
                                     <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-key" aria-hidden="true"></i>
                                     </span>
-                                        <input name="api_key" class="form-control" type="text" placeholder="Api Key"
+                                        <input name="api_key" class="form-control" type="text" placeholder="API Key"
                                                value="{{  old('api_key', $setup->get('api_key')) }}">
                                         <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary generate">
@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <small class="description">
-                                        Api Key for the NetLicensing vendor account.
+                                        <a href="https://www.labs64.de/confluence/x/-gHk" target="_blank">API Key</a> for the NetLicensing vendor account
                                     </small>
                                 </div>
                             </div>

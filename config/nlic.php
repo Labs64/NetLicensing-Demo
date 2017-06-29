@@ -9,7 +9,7 @@ return [
         'lifetime' => 90,
     ],
     'context' => [
-        'base_url' => env('NLIC_CONTEXT_BASE_URL', 'https://go.netlicensing.io/core/v2/rest')
+        'base_url' => env('NLIC_BASE_URL', 'https://go.netlicensing.io/core/v2/rest')
     ],
     'auth' => [
         'username' => env('NLIC_AUTH_USERNAME', 'demo'),
@@ -17,6 +17,6 @@ return [
         'api_key' => env('NLIC_AUTH_API_KEY'),
     ],
     'defaults' => [
-        'use_api_key_for_validation_and_token' => env('NLIC_DEFAULTS_USE_API_KEY_FOR_VALIDATION_AND_TOKEN', false)
+        'use_api_key' => env('NLIC_USE_API_KEY', false)
     ]
 ];
