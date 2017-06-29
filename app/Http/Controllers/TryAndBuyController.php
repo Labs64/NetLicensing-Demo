@@ -106,7 +106,7 @@ class TryAndBuyController extends Controller
         Cache::put('nlic.auth', [
             'username' => $request->get('username'),
             'password' => $request->get('password'),
-            'api_key' => $request->get('api_key')
+            'api_key' => $request->get('api_key', config('nlic.auth.api_key'))
         ], config('nlic.cache.lifetime'));
 
         //create history
