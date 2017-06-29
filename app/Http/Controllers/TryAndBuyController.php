@@ -78,6 +78,8 @@ class TryAndBuyController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string',
+            'use_api_key' => 'boolean',
+            'api_key' => 'required_with:use_api_key|string',
             'product_number' => 'required|string',
             'product_module_number' => 'required|string',
             'try_license_template_number' => 'required|string',
@@ -98,16 +100,33 @@ class TryAndBuyController extends Controller
         }
 
         //save auth
-        Cache::put('nlic.auth', ['username' => $request->get('username'), 'password' => $request->get('password')], config('nlic.cache.lifetime'));
+        Cache::put('nlic.auth', [
+            'username' => $request->get('username'),
+            'password' => $request->get('password'),
+            'api_key' => $request->get('api_key')
+        ], config('nlic.cache.lifetime'));
 
         //create history
         $history = $this->createHistory(['setup' => $request->all()]);
 
-        //setup context
-        $context = new Context();
-        $context->setUsername($request->get('username'));
-        $context->setPassword($request->get('password'));
-        $context->setSecurityMode(Context::BASIC_AUTHENTICATION);
+        //setup basic auth context
+        $basicAuthContext = new Context();
+        $basicAuthContext->setBaseUrl(config('nlic.context.base_url'));
+        $basicAuthContext->setUsername($request->get('username'));
+        $basicAuthContext->setPassword($request->get('password'));
+        $basicAuthContext->setSecurityMode(Context::BASIC_AUTHENTICATION);
+
+        //setup basic auth context
+        $validationAndTokenContext = new Context();
+        $validationAndTokenContext->setBaseUrl(config('nlic.context.base_url'));
+        if ($request->get('use_api_key')) {
+            $validationAndTokenContext->setApiKey($request->get('api_key'));
+            $validationAndTokenContext->setSecurityMode(Context::APIKEY_IDENTIFICATION);
+        } else {
+            $validationAndTokenContext->setUsername($request->get('username'));
+            $validationAndTokenContext->setPassword($request->get('password'));
+            $validationAndTokenContext->setSecurityMode(Context::BASIC_AUTHENTICATION);
+        }
 
         //get or create Product
         $lastRequestMethod = null;
@@ -115,7 +134,7 @@ class TryAndBuyController extends Controller
         try {
 
             //get product
-            $product = $this->getProduct($context, $request->get('product_number'));
+            $product = $this->getProduct($basicAuthContext, $request->get('product_number'));
 
             //create product
             if (!$product) {
@@ -126,7 +145,7 @@ class TryAndBuyController extends Controller
                 $product->setActive(true);
                 $product->setVersion(1.0);
 
-                $product = $this->createProduct($context, $product);
+                $product = $this->createProduct($basicAuthContext, $product);
             }
 
             //validate product
@@ -135,7 +154,7 @@ class TryAndBuyController extends Controller
             }
 
             //get product module
-            $productModule = $this->getProductModule($context, $request->get('product_module_number'));
+            $productModule = $this->getProductModule($basicAuthContext, $request->get('product_module_number'));
 
             //create product module
             if (!$productModule) {
@@ -147,7 +166,7 @@ class TryAndBuyController extends Controller
                 $productModule->setLicensingModel('TryAndBuy');
                 $productModule->setLicenseTemplate('TIMEVOLUME');
 
-                $productModule = $this->createProductModule($context, $product->getNumber(), $productModule);
+                $productModule = $this->createProductModule($basicAuthContext, $product->getNumber(), $productModule);
             }
 
             //validate product module
@@ -165,7 +184,7 @@ class TryAndBuyController extends Controller
 
 
             //get try license template
-            $tryLicenseTemplate = $this->getLicenseTemplate($context, $request->get('try_license_template_number'));
+            $tryLicenseTemplate = $this->getLicenseTemplate($basicAuthContext, $request->get('try_license_template_number'));
 
             //create license template
             if (!$tryLicenseTemplate) {
@@ -181,7 +200,7 @@ class TryAndBuyController extends Controller
                 $tryLicenseTemplate->setCurrency('EUR');
                 $tryLicenseTemplate->setPrice(0);
 
-                $tryLicenseTemplate = $this->createLicenseTemplate($context, $productModule->getNumber(), $tryLicenseTemplate);
+                $tryLicenseTemplate = $this->createLicenseTemplate($basicAuthContext, $productModule->getNumber(), $tryLicenseTemplate);
             }
 
             //validate license template
@@ -194,7 +213,7 @@ class TryAndBuyController extends Controller
             }
 
             //get buy license template
-            $buyLicenseTemplate = $this->getLicenseTemplate($context, $request->get('buy_license_template_number'));
+            $buyLicenseTemplate = $this->getLicenseTemplate($basicAuthContext, $request->get('buy_license_template_number'));
 
             //create license template
             if (!$buyLicenseTemplate) {
@@ -207,7 +226,7 @@ class TryAndBuyController extends Controller
                 $buyLicenseTemplate->setCurrency('EUR');
                 $buyLicenseTemplate->setPrice(10);
 
-                $buyLicenseTemplate = $this->createLicenseTemplate($context, $productModule->getNumber(), $buyLicenseTemplate);
+                $buyLicenseTemplate = $this->createLicenseTemplate($basicAuthContext, $productModule->getNumber(), $buyLicenseTemplate);
             }
 
             //validate license template
@@ -220,7 +239,7 @@ class TryAndBuyController extends Controller
             }
 
             //get licensee
-            $licensee = $this->getLicensee($context, $request->get('licensee_number'));
+            $licensee = $this->getLicensee($basicAuthContext, $request->get('licensee_number'));
 
             if (!$licensee) {
 
@@ -229,7 +248,7 @@ class TryAndBuyController extends Controller
                 $licensee->setName($request->get('licensee_name'));
                 $licensee->setActive(true);
 
-                $licensee = $this->createLicensee($context, $product->getNumber(), $licensee);
+                $licensee = $this->createLicensee($basicAuthContext, $product->getNumber(), $licensee);
             }
 
             //validate licensee
@@ -246,7 +265,7 @@ class TryAndBuyController extends Controller
             $validationParameters->setLicenseeName($licensee->getName());
             $validationParameters->setProductNumber($product->getNumber());
 
-            $validationResults = LicenseeService::validate($context, $licensee->getNumber(), $validationParameters);
+            $validationResults = LicenseeService::validate($validationAndTokenContext, $licensee->getNumber(), $validationParameters);
             $validations = collect($validationResults->getValidations());
             $validationResult = collect($validations->get($productModule->getNumber(), []));
 
@@ -265,7 +284,7 @@ class TryAndBuyController extends Controller
             $token->setCancelURL(route('try_and_buy.shop_cancel', ['history' => $history->get('id')]));
             $token->setCancelURLTitle('Cancel and return to ' . config('app.name'));
 
-            $token = TokenService::create($context, $token);
+            $token = TokenService::create($validationAndTokenContext, $token);
 
             $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
@@ -491,8 +510,11 @@ class TryAndBuyController extends Controller
 
     protected function createSetup()
     {
-        $auth = Cache::get('nlic.auth', $this->generate()->only(['username', 'password'])->toArray());
+        $auth = Cache::get('nlic.auth', $this->generate()->only(['username', 'password', 'api_key'])->toArray());
         $setup = $this->generate()->except(['username', 'password'])->toArray();
+
+        //default connection type
+        $setup['use_api_key'] = config('nlic.defaults.use_api_key_for_validation_and_token');
 
         return $auth + $setup;
     }
@@ -504,6 +526,7 @@ class TryAndBuyController extends Controller
         $generated = collect([
             'username' => config('nlic.auth.username'),
             'password' => config('nlic.auth.password'),
+            'api_key' => config('nlic.auth.api_key'),
             'product_number' => $faker->bothify('P-########'),
             'product_name' => 'Try & Buy demo product',
             'product_module_number' => $faker->bothify('PM-########'),

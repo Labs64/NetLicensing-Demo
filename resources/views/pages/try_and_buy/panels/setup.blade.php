@@ -105,56 +105,98 @@
                             <div class="col-md-12">
                                 <h4>Connection settings</h4>
                             </div>
-                            <div class="col-md-6 {{$errors->has('username') ? 'has-error' : '' }}">
-                                <div class="input-group">
+                            <div class="security_basic_auth">
+                                <div class="col-md-6 {{$errors->has('username') ? 'has-error' : '' }}">
+                                    <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                     </span>
-                                    <input name="username" class="form-control" type="text" placeholder="Username" value="{{  old('username', $setup->get('username')) }}">
-                                    <span class="input-group-btn">
+                                        <input name="username" class="form-control" type="text" placeholder="Username"
+                                               value="{{  old('username', $setup->get('username')) }}">
+                                        <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary generate">
                                             Reset
                                         </button>
                                     </span>
-                                </div>
-                                @if($errors->has('username'))
-                                    <div class="help-block">
-                                        {{ $errors->first('username') }}
                                     </div>
-                                @endif
-                            </div>
-                            <div class="col-md-6 {{$errors->has('password') ? 'has-error' : '' }}">
-                                <div class="input-group">
+                                    @if($errors->has('username'))
+                                        <div class="help-block">
+                                            {{ $errors->first('username') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 {{$errors->has('password') ? 'has-error' : '' }}">
+                                    <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-key" aria-hidden="true"></i>
                                     </span>
-                                    <input name="password" class="form-control" type="password" placeholder="Password" value="{{  old('password', $setup->get('password')) }}">
-                                    <span class="input-group-btn">
+                                        <input name="password" class="form-control" type="password" placeholder="Password"
+                                               value="{{  old('password', $setup->get('password')) }}">
+                                        <span class="input-group-btn">
                                         <button type="button" class="btn btn-primary generate">
                                             Reset
                                         </button>
                                     </span>
-                                </div>
-                                @if($errors->has('password'))
-                                    <div class="help-block">
-                                        {{ $errors->first('password') }}
                                     </div>
-                                @endif
+                                    @if($errors->has('password'))
+                                        <div class="help-block">
+                                            {{ $errors->first('password') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="description">
+                                        Login name and password for the NetLicensing vendor account.
+                                    </small>
+                                </div>
                             </div>
-                            <div class="col-md-12">
-                                <small class="description">
-                                    Login name and password for the NetLicensing vendor account.
-                                </small>
+                            <div class="col-md-12 security-toggle">
+                                <div>
+                                    {{ Form::checkbox('use_api_key', 1, old('use_api_key', $setup->get('use_api_key')), [
+                                'id'=>'use_api_key',
+                                'data-toggle'=>'toggle',
+                                'data-width'=>'200',
+                                'data-height'=>'34',
+                                 'data-on'=>'Validate by Api Key',
+                                 'data-off'=>'Validate by Basic auth',
+                                'data-onstyle'=>'success',
+                                'data-offstyle'=>'warning',
+                                'autocomplete'=>'off'
+                                ]) }}
+                                </div>
+                            </div>
+                            <div class="security_api_key @if(old('use_api_key', $setup->get('use_api_key'))) active @endif">
+                                <div class="col-md-6 {{$errors->has('api_key') ? 'has-error' : '' }}">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                    </span>
+                                        <input name="api_key" class="form-control" type="text" placeholder="Api Key"
+                                               value="{{  old('api_key', $setup->get('api_key')) }}">
+                                    </div>
+                                    @if($errors->has('api_key'))
+                                        <div class="help-block">
+                                            {{ $errors->first('api_key') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="description">
+                                       Api Key for the NetLicensing vendor account.
+                                    </small>
+                                </div>
                             </div>
                         </div>
                         <div class="ln_solid"></div>
 
                         <div class="accordion" role="tablist">
                             <div class="panel">
-                                <a href="#additionSetup" class="{{  !$errors->has('setup') ? 'collapsed' : '' }}" role="button" data-toggle="collapse" aria-expanded="false">
+                                <a href="#additionSetup" class="{{  !$errors->has('setup') ? 'collapsed' : '' }}"
+                                   role="button" data-toggle="collapse" aria-expanded="false">
                                     <i class="fa fa-chevron" aria-hidden="true"></i><span class="h4">Additional settings</span>
                                 </a>
-                                <div class="panel-collapse collapse {{  $errors->has('setup') ? 'collapse in' : '' }}" role="tabpanel" id="additionSetup" aria-expanded="false">
+                                <div class="panel-collapse collapse {{  $errors->has('setup') ? 'collapse in' : '' }}"
+                                     role="tabpanel" id="additionSetup" aria-expanded="false">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h4>Product</h4>
@@ -164,7 +206,9 @@
                                                 <span class="input-group-addon">
                                                     Number
                                                 </span>
-                                                <input name="product_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('product_number', $setup->get('product_number')) }}">
+                                                <input name="product_number" class="form-control" type="text"
+                                                       placeholder="Enter number"
+                                                       value="{{  old('product_number', $setup->get('product_number')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -182,7 +226,9 @@
                                                 <span class="input-group-addon">
                                                     Name
                                                 </span>
-                                                <input name="product_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('product_name', $setup->get('product_name')) }}">
+                                                <input name="product_name" class="form-control" type="text"
+                                                       placeholder="Enter Name"
+                                                       value="{{  old('product_name', $setup->get('product_name')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -205,7 +251,9 @@
                                                 <span class="input-group-addon">
                                                     Number
                                                 </span>
-                                                <input name="product_module_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('product_module_number', $setup->get('product_module_number')) }}">
+                                                <input name="product_module_number" class="form-control" type="text"
+                                                       placeholder="Enter number"
+                                                       value="{{  old('product_module_number', $setup->get('product_module_number')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                        <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -223,7 +271,9 @@
                                                 <span class="input-group-addon">
                                                     Name
                                                 </span>
-                                                <input name="product_module_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('product_module_name', $setup->get('product_module_name')) }}">
+                                                <input name="product_module_name" class="form-control" type="text"
+                                                       placeholder="Enter Name"
+                                                       value="{{  old('product_module_name', $setup->get('product_module_name')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -246,7 +296,9 @@
                                                 <span class="input-group-addon">
                                                     Number
                                                 </span>
-                                                <input name="try_license_template_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('try_license_template_number', $setup->get('try_license_template_number')) }}">
+                                                <input name="try_license_template_number" class="form-control"
+                                                       type="text" placeholder="Enter number"
+                                                       value="{{  old('try_license_template_number', $setup->get('try_license_template_number')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                          <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -264,7 +316,9 @@
                                                 <span class="input-group-addon">
                                                     Name
                                                 </span>
-                                                <input name="try_license_template_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('try_license_template_name', $setup->get('try_license_template_name')) }}">
+                                                <input name="try_license_template_name" class="form-control" type="text"
+                                                       placeholder="Enter Name"
+                                                       value="{{  old('try_license_template_name', $setup->get('try_license_template_name')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -287,7 +341,9 @@
                                                 <span class="input-group-addon">
                                                     Number
                                                 </span>
-                                                <input name="buy_license_template_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('buy_license_template_number', $setup->get('buy_license_template_number')) }}">
+                                                <input name="buy_license_template_number" class="form-control"
+                                                       type="text" placeholder="Enter number"
+                                                       value="{{  old('buy_license_template_number', $setup->get('buy_license_template_number')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                          <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -305,7 +361,9 @@
                                                 <span class="input-group-addon">
                                                     Name
                                                 </span>
-                                                <input name="buy_license_template_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('buy_license_template_name', $setup->get('buy_license_template_name')) }}">
+                                                <input name="buy_license_template_name" class="form-control" type="text"
+                                                       placeholder="Enter Name"
+                                                       value="{{  old('buy_license_template_name', $setup->get('buy_license_template_name')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -328,7 +386,9 @@
                                                 <span class="input-group-addon">
                                                     Number
                                                 </span>
-                                                <input name="licensee_number" class="form-control" type="text" placeholder="Enter number" value="{{  old('licensee_number', $setup->get('licensee_number')) }}">
+                                                <input name="licensee_number" class="form-control" type="text"
+                                                       placeholder="Enter number"
+                                                       value="{{  old('licensee_number', $setup->get('licensee_number')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                         <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -346,7 +406,9 @@
                                                 <span class="input-group-addon">
                                                     Name
                                                 </span>
-                                                <input name="licensee_name" class="form-control" type="text" placeholder="Enter Name" value="{{  old('licensee_name', $setup->get('licensee_name')) }}">
+                                                <input name="licensee_name" class="form-control" type="text"
+                                                       placeholder="Enter Name"
+                                                       value="{{  old('licensee_name', $setup->get('licensee_name')) }}">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary generate">
                                                          <i class="fa fa-refresh" aria-hidden="true"></i>

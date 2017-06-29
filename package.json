@@ -13,6 +13,7 @@
     "axios": "^0.15.3",
     "bootstrap": "^3.3.7",
     "bootstrap-sass": "^3.3.7",
+    "bootstrap-toggle": "^2.2.2",
     "clean-webpack-plugin": "^0.1.16",
     "cross-env": "^3.2.3",
     "font-awesome": "^4.7.0",

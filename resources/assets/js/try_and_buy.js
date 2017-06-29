@@ -54,4 +54,16 @@
 
     $('.footable').footable();
 
+
+    $('#use_api_key').change(function () {
+
+        var $apiKey = $('.security_api_key');
+
+        if ($(this).prop('checked')) {
+            $apiKey.addClass('active');
+        } else {
+            $apiKey.removeClass('active');
+        }
+    })
+
 })(jQuery);

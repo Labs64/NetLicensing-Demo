@@ -16,7 +16,7 @@
                 <li class="media event {{ Request::get('history') == $history->get('id') ? 'active': '' }}">
                     <div class="pull-left border-aero history_thumb">
                         <a href="{{ route('try_and_buy', ['history' => $history->get('id')]) }}">
-                            @if($history->get('validationLog')->get('error') || $history->get('errors'))
+                            @if($history->get('validationLog') && $history->get('validationLog')->get('error') || $history->get('errors'))
                                 <i class="fa fa-times error" aria-hidden="true"></i>
                             @elseif(!$history->get('validationLog')->get('valid'))
                                 <i class="fa fa-times error" aria-hidden="true"></i>

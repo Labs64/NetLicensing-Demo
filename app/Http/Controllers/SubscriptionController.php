@@ -78,6 +78,8 @@ class SubscriptionController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string',
+            'use_api_key' => 'boolean',
+            'api_key' => 'required_with:use_api_key|string',
             'product_number' => 'required|string',
             'product_module_number' => 'required|string',
             'one_day_license_template_number' => 'required|string',
@@ -98,16 +100,33 @@ class SubscriptionController extends Controller
         }
 
         //save auth
-        Cache::put('nlic.auth', ['username' => $request->get('username'), 'password' => $request->get('password')], config('nlic.cache.lifetime'));
+        Cache::put('nlic.auth', [
+            'username' => $request->get('username'),
+            'password' => $request->get('password'),
+            'api_key' => $request->get('api_key')
+        ], config('nlic.cache.lifetime'));
 
         //create history
         $history = $this->createHistory(['setup' => $request->all()]);
 
-        //setup context
-        $context = new Context();
-        $context->setUsername($request->get('username'));
-        $context->setPassword($request->get('password'));
-        $context->setSecurityMode(Context::BASIC_AUTHENTICATION);
+        //setup basic auth context
+        $basicAuthContext = new Context();
+        $basicAuthContext->setBaseUrl(config('nlic.context.base_url'));
+        $basicAuthContext->setUsername($request->get('username'));
+        $basicAuthContext->setPassword($request->get('password'));
+        $basicAuthContext->setSecurityMode(Context::BASIC_AUTHENTICATION);
+
+        //setup basic auth context
+        $validationAndTokenContext = new Context();
+        $validationAndTokenContext->setBaseUrl(config('nlic.context.base_url'));
+        if ($request->get('use_api_key')) {
+            $validationAndTokenContext->setApiKey($request->get('api_key'));
+            $validationAndTokenContext->setSecurityMode(Context::APIKEY_IDENTIFICATION);
+        } else {
+            $validationAndTokenContext->setUsername($request->get('username'));
+            $validationAndTokenContext->setPassword($request->get('password'));
+            $validationAndTokenContext->setSecurityMode(Context::BASIC_AUTHENTICATION);
+        }
 
         //get or create Product
         $lastRequestMethod = null;
@@ -115,7 +134,7 @@ class SubscriptionController extends Controller
         try {
 
             //get product
-            $product = $this->getProduct($context, $request->get('product_number'));
+            $product = $this->getProduct($basicAuthContext, $request->get('product_number'));
 
             //create product
             if (!$product) {
@@ -126,7 +145,7 @@ class SubscriptionController extends Controller
                 $product->setActive(true);
                 $product->setVersion(1.0);
 
-                $product = $this->createProduct($context, $product);
+                $product = $this->createProduct($basicAuthContext, $product);
             }
 
             //validate product
@@ -135,7 +154,7 @@ class SubscriptionController extends Controller
             }
 
             //get product module
-            $productModule = $this->getProductModule($context, $request->get('product_module_number'));
+            $productModule = $this->getProductModule($basicAuthContext, $request->get('product_module_number'));
 
             //create product module
             if (!$productModule) {
@@ -146,7 +165,7 @@ class SubscriptionController extends Controller
                 $productModule->setActive(true);
                 $productModule->setLicensingModel('Subscription');
 
-                $productModule = $this->createProductModule($context, $product->getNumber(), $productModule);
+                $productModule = $this->createProductModule($basicAuthContext, $product->getNumber(), $productModule);
             }
 
             //validate product module
@@ -164,7 +183,7 @@ class SubscriptionController extends Controller
 
 
             //get try license template
-            $oneDayLicenseTemplate = $this->getLicenseTemplate($context, $request->get('one_day_license_template_number'));
+            $oneDayLicenseTemplate = $this->getLicenseTemplate($basicAuthContext, $request->get('one_day_license_template_number'));
 
             //create license template
             if (!$oneDayLicenseTemplate) {
@@ -178,7 +197,7 @@ class SubscriptionController extends Controller
                 $oneDayLicenseTemplate->setCurrency('EUR');
                 $oneDayLicenseTemplate->setPrice(1);
 
-                $oneDayLicenseTemplate = $this->createLicenseTemplate($context, $productModule->getNumber(), $oneDayLicenseTemplate);
+                $oneDayLicenseTemplate = $this->createLicenseTemplate($basicAuthContext, $productModule->getNumber(), $oneDayLicenseTemplate);
             }
 
             //validate license template
@@ -191,7 +210,7 @@ class SubscriptionController extends Controller
             }
 
             //get buy license template
-            $tenDaysLicenseTemplate = $this->getLicenseTemplate($context, $request->get('ten_days_license_template_number'));
+            $tenDaysLicenseTemplate = $this->getLicenseTemplate($basicAuthContext, $request->get('ten_days_license_template_number'));
 
             //create license template
             if (!$tenDaysLicenseTemplate) {
@@ -205,7 +224,7 @@ class SubscriptionController extends Controller
                 $tenDaysLicenseTemplate->setCurrency('EUR');
                 $tenDaysLicenseTemplate->setPrice(10);
 
-                $tenDaysLicenseTemplate = $this->createLicenseTemplate($context, $productModule->getNumber(), $tenDaysLicenseTemplate);
+                $tenDaysLicenseTemplate = $this->createLicenseTemplate($basicAuthContext, $productModule->getNumber(), $tenDaysLicenseTemplate);
             }
 
             //validate license template
@@ -218,7 +237,7 @@ class SubscriptionController extends Controller
             }
 
             //get licensee
-            $licensee = $this->getLicensee($context, $request->get('licensee_number'));
+            $licensee = $this->getLicensee($basicAuthContext, $request->get('licensee_number'));
 
             if (!$licensee) {
 
@@ -227,7 +246,7 @@ class SubscriptionController extends Controller
                 $licensee->setName($request->get('licensee_name'));
                 $licensee->setActive(true);
 
-                $licensee = $this->createLicensee($context, $product->getNumber(), $licensee);
+                $licensee = $this->createLicensee($basicAuthContext, $product->getNumber(), $licensee);
             }
 
             //validate licensee
@@ -244,7 +263,7 @@ class SubscriptionController extends Controller
             $validationParameters->setLicenseeName($licensee->getName());
             $validationParameters->setProductNumber($product->getNumber());
 
-            $validationResults = LicenseeService::validate($context, $licensee->getNumber(), $validationParameters);
+            $validationResults = LicenseeService::validate($validationAndTokenContext, $licensee->getNumber(), $validationParameters);
             $validations = collect($validationResults->getValidations());
             $validationResult = collect($validations->get($productModule->getNumber(), []));
 
@@ -263,7 +282,7 @@ class SubscriptionController extends Controller
             $token->setCancelURL(route('subscription.shop_cancel', ['history' => $history->get('id')]));
             $token->setCancelURLTitle('Cancel and return to ' . config('app.name'));
 
-            $token = TokenService::create($context, $token);
+            $token = TokenService::create($validationAndTokenContext, $token);
 
             $this->log(NetLicensingService::getInstance()->lastCurlInfo(), true);
 
@@ -489,8 +508,11 @@ class SubscriptionController extends Controller
 
     protected function createSetup()
     {
-        $auth = Cache::get('nlic.auth', $this->generate()->only(['username', 'password'])->toArray());
+        $auth = Cache::get('nlic.auth', $this->generate()->only(['username', 'password', 'api_key'])->toArray());
         $setup = $this->generate()->except(['username', 'password'])->toArray();
+
+        //default connection type
+        $setup['use_api_key'] = config('nlic.defaults.use_api_key_for_validation_and_token');
 
         return $auth + $setup;
     }
@@ -502,6 +524,7 @@ class SubscriptionController extends Controller
         $generated = collect([
             'username' => config('nlic.auth.username'),
             'password' => config('nlic.auth.password'),
+            'api_key' => config('nlic.auth.api_key'),
             'product_number' => $faker->bothify('P-########'),
             'product_name' => 'Subscription demo product',
             'product_module_number' => $faker->bothify('PM-########'),
