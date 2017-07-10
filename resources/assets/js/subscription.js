@@ -63,6 +63,27 @@
         } else {
             $apiKey.removeClass('active');
         }
-    })
+    });
+
+
+    var useAgentToggle = {
+        el: $('#use_agent'),
+        toggle: function (checked) {
+            $('*[data-hide-if-use-agent="' + checked + '"]').hide();
+            $('*[data-hide-if-use-agent="' + !checked + '"]').show();
+            $('*[data-show-if-use-agent="' + checked + '"]').show();
+            $('*[data-show-if-use-agent="' + !checked + '"]').hide();
+        },
+        init: function () {
+            var self = this;
+            this.el.change(function () {
+                self.toggle($(this).prop('checked'))
+            });
+
+            this.toggle(this.el.prop('checked'));
+        }
+    };
+
+    useAgentToggle.init();
 
 })(jQuery);

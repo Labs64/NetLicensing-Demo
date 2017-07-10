@@ -173,6 +173,14 @@ i.warning, span.warning {
     display: block;
 }
 
+.accordion .panel {
+    padding-bottom: 7px;
+}
+
+.accordion .panel:hover {
+    background: none;
+}
+
 @media (max-width: 400px) {
     .top_nav .navbar-right {
         width: 83%;

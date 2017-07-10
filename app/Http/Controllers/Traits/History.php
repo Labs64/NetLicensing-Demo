@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 trait History
 {
+    protected $historyStorage;
+
     protected function createHistory($data)
     {
         $id = uniqid();
@@ -19,12 +21,16 @@ trait History
         return $history;
     }
 
-    protected function saveHistory(DotCollection $history, $storage)
+    protected function saveHistory(DotCollection $history, $storage = null)
     {
+        $storage = $this->getStorage($storage);
+
         $histories = $this->getHistories($storage);
 
-        if (config('nlic.history.max_items') && $histories->count() >= config('nlic.history.max_items')) {
-            $histories = $histories->splice($histories->count() + 1 - config('nlic.history.max_items'));
+        $historyMaxItems = config('nlic.history.max_items');
+
+        if ($historyMaxItems && $histories->count() >= $historyMaxItems) {
+            $histories = $histories->splice($histories->count() + 1 - $historyMaxItems);
         }
 
         $histories->push($history);
@@ -32,15 +38,27 @@ trait History
         \Cache::put($storage, $histories, config('nlic.history.lifetime'));
     }
 
-    protected function getHistory($id, $storage)
+    protected function getHistory($id, $storage = null)
     {
+        $storage = $this->getStorage($storage);
+
         $histories = $this->getHistories($storage);
 
         return dot_collect($histories->where('id', $id)->first());
     }
 
-    protected function getHistories($storage)
+    protected function getHistories($storage = null)
     {
+        $storage = $this->getStorage($storage);
+
         return \Cache::get($storage, dot_collect());
+    }
+
+    private function getStorage($storage = null)
+    {
+        $storage = !is_null($storage) ? $storage : $this->historyStorage;
+        $storage = $storage ? $storage : snake_case(str_replace('\\', '', get_class($this)));
+
+        return $storage;
     }
 }

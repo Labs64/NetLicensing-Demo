@@ -3,15 +3,24 @@
 namespace App\Http\Controllers\Traits;
 
 use Curl\CaseInsensitiveArray;
+use Illuminate\Support\Collection;
+use NetLicensing\NetLicensingService;
 
 trait Log
 {
-    protected function createLog($curlInfo, $hidden = false)
+    protected function createLog($curlInfo = null, $attributes = [])
     {
-
         $log = dot_collect();
 
-        $log->put('hidden', $hidden);
+        $curlInfo = is_null($curlInfo) ? NetLicensingService::getInstance()->lastCurlInfo() : $curlInfo;
+        $curlInfo = ($curlInfo instanceof Collection) ? $curlInfo->toArray() : $curlInfo;
+        $curlInfo = is_array($curlInfo) ? (object)$curlInfo : $curlInfo;
+
+        $attributes = ($attributes instanceof Collection) ? $attributes->toArray() : $attributes;
+
+        foreach ($attributes as $key => $value) {
+            $log->put($key, $value);
+        }
 
         $log->put('error', $curlInfo->error);
         $log->put('errorCode', $curlInfo->errorCode);
@@ -97,7 +106,6 @@ trait Log
                 $log->put('rawResponse', $curlInfo->rawResponse);
                 break;
         }
-
 
         return $log;
     }

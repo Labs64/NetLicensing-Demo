@@ -16,11 +16,11 @@
                 <li class="media event {{ Request::get('history') == $history->get('id') ? 'active': '' }}">
                     <div class="pull-left border-aero history_thumb">
                         <a href="{{ route('try_and_buy', ['history' => $history->get('id')]) }}">
-                            @if($history->get('validationLog') && $history->get('validationLog')->get('error') || $history->get('errors'))
+                            @if($history->get('validation') && $history->get('validation')->get('error') || $history->get('errors'))
                                 <i class="fa fa-times error" aria-hidden="true"></i>
-                            @elseif(!$history->get('validationLog')->get('valid'))
+                            @elseif(!$history->get('validation')->get('valid'))
                                 <i class="fa fa-times error" aria-hidden="true"></i>
-                            @elseif($history->get('validationLog')->get('warning'))
+                            @elseif($history->get('validation')->get('warning'))
                                 <i class="fa fa-exclamation warning" aria-hidden="true"></i>
                             @else
                                 <i class="fa fa-check success" aria-hidden="true"></i>
@@ -29,15 +29,15 @@
                     </div>
                     <div class="media-body">
                         <a href="{{ route('try_and_buy', ['history' => $history->get('id')]) }}">
-                            @if($history->get('validationLog.error') || $history->get('errors'))
+                            @if($history->get('validation.error') || $history->get('errors'))
                                 <span class="title error">
                                     Validation - Error
                                 </span>
-                            @elseif(!$history->get('validationLog')->get('valid'))
+                            @elseif(!$history->get('validation')->get('valid'))
                                 <span class="title error">
                                     Validation - Not valid
                                 </span>
-                            @elseif($history->get('validationLog')->get('warning'))
+                            @elseif($history->get('validation')->get('warning'))
                                 <span class="title warning">
                                     Validation - Warning
                                 </span>
@@ -49,7 +49,14 @@
 
                             <div class="history_content">
                                 <p><strong>Licensee Number:</strong> {{ $history->get('setup.licensee_number') }}</p>
-                                <p><strong>Product Number:</strong> {{ $history->get('setup.product_number') }}</p>
+                                <p><strong>Product Module Number:</strong> {{ $history->get('setup.product_module_number') }}</p>
+                                <p>
+                                    @if($history->get('setup.use_agent'))
+                                        <span class="label label-primary">agent</span>
+                                    @else
+                                        <span class="label label-info">netlisensing.io</span>
+                                    @endif
+                                </p>
                                 <p><small>{{ $history->get('date')->diffForHumans() }}</small></p>
                             </div>
                         </a>
