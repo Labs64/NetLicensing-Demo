@@ -21,7 +21,8 @@ This _NetLicensing Demo Application_ provides a simple way to explore basic NetL
 * install NodeJS
 * clone this repo
 * copy _.env.example_ to _.env_
-* execute _php artisan key:generate_ (command will add APP_KEY to the _.env_)
+* install dependencies by executing _composer install --prefer-dist_
+* execute _php artisan key:generate_ (adds APP_KEY to the _.env_)
 * modify keys beginning with _NLIC_ in the _.env_ file with your values:
     * NLIC_BASE_URL - NetLicensing API base url
     * NLIC_AGENT_BASE_URL - NetLicensing Agent base url
