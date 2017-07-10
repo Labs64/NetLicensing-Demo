@@ -24,6 +24,7 @@ This _NetLicensing Demo Application_ provides a simple way to explore basic NetL
 * execute _php artisan key:generate_ (command will add APP_KEY to the _.env_)
 * modify keys beginning with _NLIC_ in the _.env_ file with your values:
     * NLIC_BASE_URL - NetLicensing API base url
+    * NLIC_AGENT_BASE_URL - NetLicensing Agent base url
     * NLIC_AUTH_USERNAME - NetLicensing username
     * NLIC_AUTH_PASSWORD - NetLicensing password
     * NLIC_AUTH_API_KEY - API Key for NetLicensing
