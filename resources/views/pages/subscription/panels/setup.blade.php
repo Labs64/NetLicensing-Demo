@@ -24,7 +24,7 @@
     </div>
 
     <div class="x_content">
-        {{ Form::open(['route' => 'subscription.validate', 'class'=>'form-horizontal form-label-left input_mask try_and_buy']) }}
+        {{ Form::open(['route' => 'subscription.validate', 'class'=>'form-horizontal form-label-left input_mask subscription']) }}
 
         {{--Use Agent or Netlisensing.io Checkbox--}}
         <div class="row">

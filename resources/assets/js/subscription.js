@@ -11,7 +11,7 @@
 
         $.ajax({
             method: 'post',
-            url: 'try-and-buy/regenerate',
+            url: 'subscription/regenerate',
             data: {keys: [key]},
             beforeSend: function () {
                 Pace.restart();
