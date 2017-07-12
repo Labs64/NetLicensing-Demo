@@ -30,6 +30,12 @@
         <div class="row">
 
             <div class="col-md-6">
+
+                <button class="btn btn-app validate" type="submit">
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                    Validate
+                </button>
+
                 @if(!$shop->isEmpty())
                     <a href="{{ $shop->get('shopURL')}}" class="btn btn-app" data-hide-if-use-agent="true">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -41,10 +47,6 @@
                         Shop
                     </button>
                 @endif
-                <button class="btn btn-app validate" type="submit">
-                    <i class="fa fa-play" aria-hidden="true"></i>
-                    Validate
-                </button>
             </div>
 
             {{--Use Agent or Netlicensing--}}

@@ -14,7 +14,7 @@ return [
         'api_key' => env('NLIC_AUTH_API_KEY'),
     ],
     'defaults' => [
-        'use_api_key' => env('NLIC_USE_API_KEY', false),
+        'use_api_key' => env('NLIC_USE_API_KEY', true),
         'use_agent' => env('NLIC_USE_AGENT', false),
     ],
     'connections' => [
