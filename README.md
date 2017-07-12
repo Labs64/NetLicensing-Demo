@@ -8,15 +8,53 @@
 
 # Labs64 NetLicensing / Demo Application
 
-This _NetLicensing Demo Application_ provides a simple way to explore basic NetLicensing functionalities, as well as integration options with real application code. Feel free to use code snippets from this project as a help for NetLicensing integration in your own product.
+This _NetLicensing Demo Application_ provides a simple way to explore basic [NetLicensing](http://netlicensing.io/) functionalities, as well as integration options with real application code. Feel free to use code snippets from this project as a help for NetLicensing integration in your own product.
 
 # Getting started
 
-## With docker
+## With Docker
 
-\<tbd>
+### What's Inside
+This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: _netlicensing-demo (centos:7 based), nginx_. The `/var/www/netlicensing-demo` directory is the web root which is mapped to the nginx container.
+You can directly edit configuration files from within the repo as they are mapped to the correct locations in containers.
 
-## Without docker
+### System Requirements
+To be able to run Laravel Boilerplate you have to meet the following requirements:
+* [docker](https://www.docker.com)
+* [docker-compose](https://docs.docker.com/compose/)
+
+### Run
+
+1. Clone repository
+```
+$ git clone https://github.com/Labs64/NetLicensing-Demo.git
+```
+
+2. Copy `.env.example` to `.env` and modify according to your environment
+```
+$ cp .env.example .env
+```
+
+3. Start environment
+```
+$ docker-compose up -d
+```
+
+4. Build project
+```
+$ docker exec netlicensing-demo ./dockerfiles/bin/prj-build.sh
+```
+
+Now you can browse the site [http://localhost:80](http://localhost:80)  ??
+
+---
+
+5. Stop environment
+```
+$ docker-compose down
+```
+
+## Without Docker
 
 * install NodeJS
 * clone this repo
