@@ -26,7 +26,7 @@
     <div class="x_content">
         {{ Form::open(['route' => 'subscription.validate', 'class'=>'form-horizontal form-label-left input_mask subscription']) }}
 
-        {{--Use Agent or Netlisensing.io Checkbox--}}
+        {{--Use NetLicensing Agent or netlicensing.io Checkbox--}}
         <div class="row">
 
             <div class="col-md-6">
@@ -49,17 +49,17 @@
                 @endif
             </div>
 
-            {{--Use Agent or Netlicensing--}}
+            {{--Use NetLicensing Agent or Netlicensing--}}
             @if(config('nlic.connections.agent.base_url'))
                 <div class="col-md-6">
                     <div class="pull-right">
                         {{ Form::checkbox('use_agent', 1, old('use_agent', $setup->get('use_agent')), [
                             'id'=>'use_agent',
                             'data-toggle'=>'toggle',
-                            'data-width'=>'170',
+                            'data-width'=>'200',
                             'data-height'=>'34',
-                            'data-on'=>'Use Agent',
-                            'data-off'=>'Use netlisensing.io',
+                            'data-on'=>'Use NetLicensing Agent',
+                            'data-off'=>'Use netlicensing.io',
                             'data-onstyle'=>'primary',
                             'data-offstyle'=>'info',
                             'autocomplete'=>'off'

@@ -54,7 +54,7 @@
                                     @if($history->get('setup.use_agent'))
                                         <span class="label label-primary">agent</span>
                                     @else
-                                        <span class="label label-info">netlisensing.io</span>
+                                        <span class="label label-info">netlicensing.io</span>
                                     @endif
                                 </p>
                                 <p><small>{{ $history->get('date')->diffForHumans() }}</small></p>
