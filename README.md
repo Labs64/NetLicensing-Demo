@@ -78,11 +78,11 @@ $ cd NetLicensing-Demo
 $ cp .env.example .env
 ```
 modify keys beginning with NLIC in the .env file with your values:
-    * NLIC_BASE_URL - NetLicensing API base url
-    * NLIC_AGENT_BASE_URL - NetLicensing Agent base url
-    * NLIC_AUTH_USERNAME - NetLicensing username
-    * NLIC_AUTH_PASSWORD - NetLicensing password
-    * NLIC_AUTH_API_KEY - API Key for NetLicensing
+  - _NLIC_BASE_URL_ - NetLicensing API base URL
+  - _NLIC_AGENT_BASE_URL_ - NetLicensing Agent base URL
+  - _NLIC_AUTH_USERNAME_ - NetLicensing username
+  - _NLIC_AUTH_PASSWORD_ - NetLicensing password
+  - _NLIC_AUTH_API_KEY_ - API Key for NetLicensing
 
 6. Install composer dependencies
 ```
