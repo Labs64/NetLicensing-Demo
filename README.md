@@ -8,13 +8,12 @@
 
 # Labs64 NetLicensing / Demo Application
 
-This _NetLicensing Demo Application_ provides a simple way to explore basic [NetLicensing](http://netlicensing.io/) functionalities, as well as integration options with real application code. Feel free to use code snippets from this project as a help for NetLicensing integration in your own product.
+This _NetLicensing Demo Application_ provides a simple way to explore basic [NetLicensing](http://netlicensing.io) functionalities, as well as integration options with real application code. Feel free to use code snippets from this project as a help for NetLicensing integration in your own product.
 
 # Getting started
 
 ## With Docker
 
-### What's Inside
 This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: _netlicensing-demo (centos:7 based), nginx_. The `/var/www/netlicensing-demo` directory is the web root which is mapped to the nginx container.
 You can directly edit configuration files from within the repo as they are mapped to the correct locations in containers.
 
@@ -45,7 +44,7 @@ $ docker-compose up -d
 $ docker exec netlicensing-demo ./dockerfiles/bin/prj-build.sh
 ```
 
-Now you can browse the site [http://localhost:80](http://localhost:80)  ??
+Now you can browse the site [http://localhost:80](http://localhost:80)
 
 ---
 
