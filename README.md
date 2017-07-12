@@ -55,16 +55,56 @@ $ docker-compose down
 
 ## Without Docker
 
-* install NodeJS
-* clone this repo
-* copy _.env.example_ to _.env_
-* install dependencies by executing _composer install --prefer-dist_
-* execute _php artisan key:generate_ (adds APP_KEY to the _.env_)
-* modify keys beginning with _NLIC_ in the _.env_ file with your values:
+### System Requirements
+To be able to run NetLicensing Demo Application you have to meet the following requirements:
+- PHP > 5.6.4
+- PHP Extensions: PDO, cURL, Mbstring, Tokenizer, Mcrypt, XML, GD
+- Node.js > 6.0
+- Composer > 1.0.0
+
+### Installation
+1. Install Composer using detailed installation instructions [here](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
+2. Install Node.js using detailed installation instructions [here](https://nodejs.org/en/download/package-manager/)
+3. Clone repository
+```
+$ git clone https://github.com/Labs64/NetLicensing-Demo.git
+```
+4. Change into the working directory
+```
+$ cd NetLicensing-Demo
+```
+5. Copy `.env.example` to `.env`
+```
+$ cp .env.example .env
+```
+modify keys beginning with NLIC in the .env file with your values:
     * NLIC_BASE_URL - NetLicensing API base url
     * NLIC_AGENT_BASE_URL - NetLicensing Agent base url
     * NLIC_AUTH_USERNAME - NetLicensing username
     * NLIC_AUTH_PASSWORD - NetLicensing password
     * NLIC_AUTH_API_KEY - API Key for NetLicensing
-* execute _npm install_
-* execute _npm run dev_
+
+6. Install composer dependencies
+```
+$ composer install --prefer-dist
+```
+7. An application key can be generated with the command
+```
+$ php artisan key:generate
+```
+8. Execute following commands to install other dependencies
+```
+$ npm install
+$ npm run dev
+```
+
+### Run
+
+To start the PHP built-in server
+```
+$ php artisan serve --port=8080
+or
+$ php -S localhost:8080 -t public/
+```
+
+Now you can browse the site [http://localhost:8080](http://localhost:8080)
