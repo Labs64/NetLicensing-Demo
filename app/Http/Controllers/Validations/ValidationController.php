@@ -92,6 +92,8 @@ abstract class ValidationController extends Controller
         try {
             $product = ProductService::get($context, $number);
 
+            \Log::info('getProduct', ['context' => $context, 'product' => $product->toArray()]);
+
             //save to log product get
             $this->storeLog(null, ['hidden' => true]);
 
@@ -100,6 +102,9 @@ abstract class ValidationController extends Controller
         } catch (\Exception $exception) {
 
             if ($this->getLastCurlInfo()->httpStatusCode == 400) {
+
+                \Log::warning('getProduct', ['context' => $context, 'response' => (array)$this->getLastCurlInfo()]);
+
                 //set error to log but mark as hidden
                 $this->storeLog(null, ['hidden' => true]);
                 return null;
@@ -115,7 +120,10 @@ abstract class ValidationController extends Controller
     protected function createProduct(Context $context, Product $product)
     {
         try {
+
             $product = ProductService::create($context, $product);
+
+            \Log::info('createProduct', ['context' => $context, 'product' => $product->toArray()]);
 
             //save to log product create
             $this->storeLog(null, ['hidden' => true]);
@@ -136,6 +144,8 @@ abstract class ValidationController extends Controller
         try {
             $productModule = ProductModuleService::get($context, $number);
 
+            \Log::info('getProductModule', ['context' => $context, 'productModule' => $productModule->toArray()]);
+
             //save to log product get
             $this->storeLog(null, ['hidden' => true]);
 
@@ -144,6 +154,9 @@ abstract class ValidationController extends Controller
         } catch (\Exception $exception) {
 
             if ($this->getLastCurlInfo()->httpStatusCode == 400) {
+
+                \Log::warning('getProductModule', ['context' => $context, 'response' => (array)$this->getLastCurlInfo()]);
+
                 //set error to log but mark as hidden
                 $this->storeLog(null, ['hidden' => true]);
                 return null;
@@ -160,6 +173,8 @@ abstract class ValidationController extends Controller
     {
         try {
             $productModule = ProductModuleService::create($context, $productNumber, $productModule);
+
+            \Log::info('createProductModule', ['context' => $context, 'productModule' => $productModule->toArray()]);
 
             //save to log product create
             $this->storeLog(null, ['hidden' => true]);
@@ -180,6 +195,8 @@ abstract class ValidationController extends Controller
         try {
             $licenseTemplate = LicenseTemplateService::get($context, $number);
 
+            \Log::info('getLicenseTemplate', ['context' => $context, 'licenseTemplate' => $licenseTemplate->toArray()]);
+
             //save to log product get
             $this->storeLog(null, ['hidden' => true]);
 
@@ -188,6 +205,9 @@ abstract class ValidationController extends Controller
         } catch (\Exception $exception) {
 
             if ($this->getLastCurlInfo()->httpStatusCode == 400) {
+
+                \Log::warning('getLicenseTemplate', ['context' => $context, 'response' => (array)$this->getLastCurlInfo()]);
+
                 //set error to log but mark as hidden
                 $this->storeLog(null, ['hidden' => true]);
                 return null;
@@ -204,6 +224,8 @@ abstract class ValidationController extends Controller
     {
         try {
             $licenseTemplate = LicenseTemplateService::create($context, $productModuleNumber, $licenseTemplate);
+
+            \Log::info('createLicenseTemplate', ['context' => $context, 'licenseTemplate' => $licenseTemplate->toArray()]);
 
             //save to log product create
             $this->storeLog(null, ['hidden' => true]);
@@ -223,6 +245,8 @@ abstract class ValidationController extends Controller
         try {
             $licensee = LicenseeService::get($context, $number);
 
+            \Log::info('getLicensee', ['context' => $context, 'licensee' => $licensee->toArray()]);
+
             //save to log product get
             $this->storeLog(null, ['hidden' => true]);
 
@@ -231,6 +255,9 @@ abstract class ValidationController extends Controller
         } catch (\Exception $exception) {
 
             if ($this->getLastCurlInfo()->httpStatusCode == 400) {
+
+                \Log::warning('getLicensee', ['context' => $context, 'response' => (array)$this->getLastCurlInfo()]);
+
                 //set error to log but mark as hidden
                 $this->storeLog(null, ['hidden' => true]);
                 return null;
@@ -247,6 +274,8 @@ abstract class ValidationController extends Controller
     {
         try {
             $licensee = LicenseeService::create($context, $productNumber, $licensee);
+
+            \Log::info('createLicensee', ['context' => $context, 'licensee' => $licensee->toArray()]);
 
             //save to log product create
             $this->storeLog(null, ['hidden' => true]);
@@ -265,6 +294,9 @@ abstract class ValidationController extends Controller
     {
         try {
             $results = LicenseeService::validate($context, $licenseeNumber, $parameters);
+
+            \Log::info('runValidate results', $results->getValidations());
+
             $validations = collect($results->getValidations());
             $result = collect($validations->get($productModuleNumber, []));
 
@@ -299,6 +331,8 @@ abstract class ValidationController extends Controller
 
             $token = TokenService::create($context, $token);
 
+            \Log::info('createShopToken', ['context' => $context, 'token' => $token->toArray()]);
+
             //save to log token create
             $this->storeLog(null, ['hidden' => true]);
 
@@ -314,7 +348,6 @@ abstract class ValidationController extends Controller
 
     protected function getLastCurlInfo()
     {
-
         return NetLicensingService::getInstance()->lastCurlInfo();
     }
 

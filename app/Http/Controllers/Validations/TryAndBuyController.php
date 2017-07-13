@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Validations;
 
+use App\Http\Controllers\Traits\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use NetLicensing\Licensee;
@@ -59,6 +60,8 @@ class TryAndBuyController extends ValidationController
      */
     public function nlicValidate(Request $request)
     {
+        \Log::info('Request params', $request->all());
+
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string',
@@ -97,6 +100,8 @@ class TryAndBuyController extends ValidationController
 
             if ($request->expectsJson()) return response()->json($validator->errors(), 422);
 
+            \Log::error('Validator status - Error', $validator->errors()->toArray());
+
             return redirect()->route('try_and_buy')
                 ->withInput($request->all())
                 ->withErrors($validator->errors()->toArray());
@@ -118,6 +123,8 @@ class TryAndBuyController extends ValidationController
              * PRE VALIDATION
              * Skip this step if need use agent
              */
+
+
             if (!$request->get('use_agent')) {
 
                 //get pre validation context
@@ -261,7 +268,10 @@ class TryAndBuyController extends ValidationController
             }
 
             //get validate context
-            $validationBaseUrl = $request->get('use_agent') ? config('nlic.connections.agent.base_url') : config('nlic.connections.netlicensing.base_url');
+            $validationBaseUrl = $request->get('use_agent')
+                ? config('nlic.connections.agent.base_url')
+                : config('nlic.connections.netlicensing.base_url');
+
             $validationContext = $request->get('use_api_key')
                 ? $this->getApiContext($request->get('api_key'), $validationBaseUrl)
                 : $this->getBasicContext($request->get('username'), $request->get('password'), $validationBaseUrl);
@@ -303,6 +313,8 @@ class TryAndBuyController extends ValidationController
             }
 
         } catch (\Exception $exception) {
+
+            \Log::error($exception);
 
             //save history
             $history->put('logs', $this->logs);
