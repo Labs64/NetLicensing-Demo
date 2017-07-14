@@ -314,6 +314,7 @@ class TryAndBuyController extends ValidationController
 
         } catch (\Exception $exception) {
 
+            \Log::critical('Last Curl Info', ['curlInfo' => (array)$this->getLastCurlInfo()]);
             \Log::error($exception);
 
             //save history

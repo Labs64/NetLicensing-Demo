@@ -52,11 +52,11 @@ trait Log
         $requestHeaders = $curlInfo->requestHeaders;
 
         $requestLine = $requestHeaders['request-line'];
-        $requestLineParts = explode(' ', $requestLine);
+        $requestLineParts = collect(explode(' ', $requestLine));
 
-        $log->put('method', $requestLineParts[0]);
-        $log->put('urlPart', $requestLineParts[1]);
-        $log->put('version', $requestLineParts[2]);
+        $log->put('method', $requestLineParts->get(0, 'Unknown'));
+        $log->put('urlPart', $requestLineParts->get(1, 'Unknown'));
+        $log->put('version', $requestLineParts->get(2, 'Unknown'));
 
         $requestHeadersCount = $requestHeaders->count();
 
