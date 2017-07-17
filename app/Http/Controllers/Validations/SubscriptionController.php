@@ -60,8 +60,6 @@ class SubscriptionController extends ValidationController
      */
     public function nlicValidate(Request $request)
     {
-        \Log::info('Request params', $request->all());
-
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string',
@@ -99,8 +97,6 @@ class SubscriptionController extends ValidationController
             }
 
             if ($request->expectsJson()) return response()->json($validator->errors(), 422);
-
-            \Log::error('Validator status - Error', $validator->errors()->toArray());
 
             return redirect()->route('subscription')
                 ->withInput($request->all())
@@ -309,15 +305,15 @@ class SubscriptionController extends ValidationController
 
         } catch (\Exception $exception) {
 
-            \Log::critical('Last Curl Info', ['curlInfo' => (array)$this->getLastCurlInfo()]);
-            \Log::error($exception);
-
             //save history
             $history->put('logs', $this->logs);
             $history->put('validation', $this->logs->last());
             $history->put('errors', ['validation' => $exception->getMessage()]);
 
             $this->saveHistory($history, $this->storage);
+
+            //save error to laravel log
+            \Log::error($exception);
 
             return redirect()->route('subscription', ['history' => $history->get('id')]);
         }
