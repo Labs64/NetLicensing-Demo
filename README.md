@@ -44,7 +44,7 @@ $ docker-compose up -d
 $ docker exec netlicensing-demo ./dockerfiles/bin/prj-build.sh
 ```
 
-Now you can browse the site [http://localhost:80](http://localhost:80)
+Now you can browse the site at [http://localhost:80](http://localhost:80)
 
 ---
 
@@ -107,4 +107,4 @@ or
 $ php -S localhost:8080 -t public/
 ```
 
-Now you can browse the site [http://localhost:8080](http://localhost:8080)
+Now you can browse the site at [http://localhost:8080](http://localhost:8080)
