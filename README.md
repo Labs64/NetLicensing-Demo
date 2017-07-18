@@ -18,7 +18,7 @@ This project is based on [docker-compose](https://docs.docker.com/compose/). By 
 You can directly edit configuration files from within the repo as they are mapped to the correct locations in containers.
 
 ### System Requirements
-To be able to run Laravel Boilerplate you have to meet the following requirements:
+To be able to run NetLicensing Demo you have to meet the following requirements:
 * [docker](https://www.docker.com)
 * [docker-compose](https://docs.docker.com/compose/)
 
