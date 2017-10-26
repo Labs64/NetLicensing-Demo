@@ -1,4 +1,4 @@
-<p align="center"><img src="https://netlicensing.io/img/labs64-logo.png"></p>
+<a href="https://netlicensing.io"><img src="https://netlicensing.io/img/netlicensing-stage-twitter.jpg" alt="Innovative License Management Solution"></a>
 
 <p align="center">
 <a href="https://travis-ci.org/Labs64/NetLicensing-Demo"><img src="https://travis-ci.org/Labs64/NetLicensing-Demo.svg" alt="Build Status"></a>
@@ -6,7 +6,7 @@
 <a href="https://waffle.io/Labs64/NetLicensing-Demo"><img src="https://badge.waffle.io/Labs64/NetLicensing-Demo.svg?label=ready&title=Ready" alt="Stories in Ready"></a>
 </p>
 
-# Labs64 NetLicensing / Demo Application
+# [Labs64 NetLicensing](https://netlicensing.io) Demo Application
 
 This _NetLicensing Demo Application_ provides a simple way to explore basic [NetLicensing](https://netlicensing.io) functionalities, as well as integration options with real application code. Feel free to use code snippets from this project as a help for NetLicensing integration in your own product.
 
