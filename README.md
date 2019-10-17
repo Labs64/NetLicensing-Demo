@@ -3,7 +3,6 @@
 <p align="center">
 <a href="https://travis-ci.org/Labs64/NetLicensing-Demo"><img src="https://travis-ci.org/Labs64/NetLicensing-Demo.svg" alt="Build Status"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></a>
-<a href="https://waffle.io/Labs64/NetLicensing-Demo"><img src="https://badge.waffle.io/Labs64/NetLicensing-Demo.svg?label=ready&title=Ready" alt="Stories in Ready"></a>
 </p>
 
 # [Labs64 NetLicensing](https://netlicensing.io) Demo Application
