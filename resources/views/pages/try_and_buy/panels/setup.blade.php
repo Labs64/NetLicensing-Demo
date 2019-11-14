@@ -250,7 +250,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <small class="description">
-                                                    <a href="https://www.labs64.de/confluence/x/-gHk" target="_blank">
+                                                    <a href="https://netlicensing.io/wiki/security" target="_blank">
                                                         API Key
                                                     </a> for the NetLicensing vendor account
                                                 </small>
