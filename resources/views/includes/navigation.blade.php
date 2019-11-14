@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.labs64.de/confluence/x/pwCo" target="_blank">
+                        <a href="https://netlicensing.io/wiki/restful-api" target="_blank">
                             <i class="fa fa-cogs" aria-hidden="true"></i>
                             RESTful API
                         </a>
