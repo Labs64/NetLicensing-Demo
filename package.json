@@ -24,6 +24,7 @@
     "lodash": "^4.17.4",
     "pace-progress": "^1.0.2",
     "syntaxhighlighter": "^3.0.90",
-    "vue": "^2.1.10"
+    "vue": "^2.1.10",
+    "guidechimp": "^0.7.7",
   }
 }
