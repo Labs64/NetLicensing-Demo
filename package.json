@@ -25,6 +25,6 @@
     "pace-progress": "^1.0.2",
     "syntaxhighlighter": "^3.0.90",
     "vue": "^2.1.10",
-    "guidechimp": "^1.0.0"
+    "guidechimp": "^1.2.0"
   }
 }
