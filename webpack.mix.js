@@ -1,20 +1,4 @@
-const {mix} = require('laravel-mix');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
-var pathsToClean = [
-    'public/assets/js',
-    'public/assets/css'
-];
-
-// the clean options to use
-var cleanOptions = {};
-
-mix.webpackConfig({
-    plugins: [
-        new CleanWebpackPlugin(pathsToClean, cleanOptions)
-    ]
-});
-
+const mix = require('laravel-mix');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -25,7 +9,6 @@ mix.webpackConfig({
  | file for the application as well as bundling up all the JS files.
  |
  */
-
 
 mix.scripts([
     'node_modules/jquery/dist/jquery.js',
