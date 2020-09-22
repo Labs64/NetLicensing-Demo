@@ -8,12 +8,12 @@
     "authors": [
         {
             "name": "Labs64 GmbH",
-            "email": "netlicensing@labs64.com",
-            "homepage": "http://netlicensing.io"
+            "email": "info@netlicensing.io",
+            "homepage": "https://netlicensing.io"
         }
     ],
     "support": {
-        "email": "netlicensing@labs64.com",
+        "email": "info@netlicensing.io",
         "issues": "https://github.com/Labs64/NetLicensing-Demo/issues",
         "wiki": "https://github.com/Labs64/NetLicensing-Demo",
         "source": "https://github.com/Labs64/NetLicensing-Demo",
@@ -21,7 +21,7 @@
     },
     "require": {
         "php": ">=5.6",
-        "Labs64/NetLicensingClient-php": "~2.3.7",
+        "Labs64/NetLicensingClient-php": "~2.4.0",
         "arcanedev/log-viewer": "~4.0",
         "arcanedev/no-captcha": "~3.0",
         "creativeorange/gravatar": "~1.0",
