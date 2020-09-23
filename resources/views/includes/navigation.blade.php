@@ -39,7 +39,7 @@
                 <h3>Useful Links</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="https://go.netlicensing.io/console/v2/?lc=4b566c7e20&source=lmbox001" target="_blank">
+                        <a href="https://ui.netlicensing.io/#/login?cr=ZGVtbzpkZW1v" target="_blank">
                             <i class="fa fa-heartbeat" aria-hidden="true"></i>
                             Live demo
                         </a>
@@ -51,13 +51,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="http://io.labs64.com/NetLicensing-API/" target="_blank">
+                        <a href="https://netlicensing.io/NetLicensing-API/" target="_blank">
                             <i class="fa fa-code" aria-hidden="true"></i>
                             API Test Center
                         </a>
                     </li>
                     <li>
-                        <a href="http://netlicensing.io/licensing-models/" target="_blank">
+                        <a href="https://netlicensing.io/licensing-models/" target="_blank">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                             Licensing Models
                         </a>
