@@ -4,7 +4,7 @@ LABEL maintainer="Labs64 NetLiecnsing info@netlicensing.io"
 
 # Install some must-haves
 RUN yum -y install vim wget sendmail
-RUN yum -y install libtool make automake autoconf
+RUN yum -y install libtool make automake autoconf libpng-devel
 RUN yum -y install git
 RUN git --version
 
