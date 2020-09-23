@@ -6,6 +6,7 @@ LABEL maintainer="Labs64 NetLiecnsing info@netlicensing.io"
 RUN yum -y install vim wget sendmail
 RUN yum -y install libtool make automake autoconf libpng-devel
 RUN yum -y install git
+RUN yum -y groupinstall 'Development Tools'
 RUN git --version
 
 # Install PHP on CentOS ( https://linuxize.com/post/how-to-install-php-on-centos-8/ )
