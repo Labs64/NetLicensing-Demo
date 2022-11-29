@@ -21,7 +21,7 @@
     "gentelella": "^1.4.0",
     "guidechimp": "^1.7.7",
     "jquery": "^3.2.1",
-    "laravel-mix": "0.*",
+    "laravel-mix": "6.*",
     "lodash": "^4.17.4",
     "pace-progress": "^1.0.2",
     "syntaxhighlighter": "^3.0.90",
