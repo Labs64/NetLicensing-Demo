@@ -110,7 +110,11 @@
                                 Response
                             </h2>
                             <div class="excerpt">
-                                <pre class="brush: xml">{{ $log->get('response') }}</pre>
+                                @if(is_object($log->get('response')))
+                                   <pre class="brush: xml">{{ json_encode($log->get('response'), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) }}</pre>
+                                @else
+                                   <pre class="brush: xml">{{ $log->get('response') }}</pre>
+                                @endif
                             </div>
                         </div>
                     </div>
