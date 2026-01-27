@@ -20,3 +20,6 @@ services:
     ports:
       - "80:80"
     restart: always
+
+  fakesmtp:
+    image: ghusta/fakesmtp:latest

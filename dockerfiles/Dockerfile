@@ -1,45 +1,45 @@
-FROM centos:8
+FROM php:7.4-fpm-alpine
 
 LABEL maintainer="Labs64 NetLiecnsing info@netlicensing.io"
 
 # Install some must-haves
-RUN yum -y install vim wget sendmail
-RUN yum -y install libtool make automake autoconf libpng-devel
-RUN yum -y install git
-RUN yum -y groupinstall 'Development Tools'
-RUN git --version
+#RUN yum -y install vim wget sendmail
+#RUN yum -y install libtool make automake autoconf libpng-devel
+#RUN yum -y install git
+#RUN yum -y groupinstall 'Development Tools'
+#RUN git --version
 
 # Install PHP on CentOS ( https://linuxize.com/post/how-to-install-php-on-centos-8/ )
-RUN dnf install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
-RUN dnf module list php
-RUN dnf module reset php
-RUN dnf module -y enable php:remi-7.4
+#RUN dnf install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+#RUN dnf module list php
+#RUN dnf module reset php
+#RUN dnf module -y enable php:remi-7.4
 
-RUN dnf -y install php \
-					         php-bcmath \
-					         php-cli \
-					         php-common \
-					         php-curl \
-					         php-fpm \
-					         php-gd \
-					         php-ldap \
-					         php-imap \
-					         php-intl \
-					         php-mbstring \
-					         php-mcrypt \
-					         php-mysqlnd \
-					         php-opcache \
-					         php-pdo \
-					         php-pear \
-					         php-pecl-apcu \
-					         php-pecl-imagick \
-					         php-pgsql \
-					         php-process \
-					         php-pspell \
-					         php-recode \
-					         php-soap \
-					         php-tidy \
-					         php-xml
+#RUN dnf -y install php \
+#					         php-bcmath \
+#					         php-cli \
+#					         php-common \
+#					         php-curl \
+#					         php-fpm \
+#					         php-gd \
+#					         php-ldap \
+#					         php-imap \
+#					         php-intl \
+#					         php-mbstring \
+#					         php-mcrypt \
+#					         php-mysqlnd \
+#					         php-opcache \
+#					         php-pdo \
+#					         php-pear \
+#					         php-pecl-apcu \
+#					         php-pecl-imagick \
+#					         php-pgsql \
+#					         php-process \
+#					         php-pspell \
+#					         php-recode \
+#					         php-soap \
+#					         php-tidy \
+#					         php-xml
 
 RUN php -v
 
@@ -55,14 +55,15 @@ RUN mv composer.phar /usr/bin/composer
 RUN composer --version
 
 # Install Node.js
-RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-RUN yum -y install nodejs
-RUN yum list installed nodejs
+#RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+#RUN yum -y install nodejs
+#RUN yum list installed nodejs
+RUN apk add --no-cache nodejs npm bash
 RUN node -v
 
 # Final update and clean up
-RUN yum -y update
-RUN yum clean all
+#RUN yum -y update
+#RUN yum clean all
 
 # Define work directory
 WORKDIR /var/www/netlicensing-demo
