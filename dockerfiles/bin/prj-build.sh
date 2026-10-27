@@ -12,9 +12,5 @@ php artisan config:clear
 # Verify environment config
 cat .env
 
-# Install dependencies
-npm ci
-npm run dev
-
 # Execute PHPUnit tests
 vendor/bin/phpunit
