@@ -13,8 +13,10 @@ This _NetLicensing Demo Application_ provides a simple way to explore basic [Net
 
 ## With Docker
 
-This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: _netlicensing-demo (centos:7 based), nginx_. The `/var/www/netlicensing-demo` directory is the web root which is mapped to the nginx container.
+This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: _netlicensing-demo (PHP-FPM), nginx_. The `/var/www/netlicensing-demo` directory is the web root which is mapped to the nginx container.
 You can directly edit configuration files from within the repo as they are mapped to the correct locations in containers.
+
+The optional `node` service uses Node.js 24.22.1 for frontend asset builds; Node.js is not installed in the PHP container.
 
 ### System Requirements
 To be able to run NetLicensing Demo you have to meet the following requirements:
@@ -38,7 +40,13 @@ $ cp .env.example .env
 $ docker-compose up -d
 ```
 
-4. Build project
+4. Install Node dependencies and build frontend assets with the pinned Node.js container
+```
+$ docker-compose run --rm node npm ci
+$ docker-compose run --rm node npm run dev
+```
+
+5. Build the PHP project and run tests
 ```
 $ docker exec netlicensing-demo ./dockerfiles/bin/prj-build.sh
 ```
@@ -47,7 +55,7 @@ Now you can browse the site at [http://localhost:80](http://localhost:80)
 
 ---
 
-5. Stop environment
+6. Stop environment
 ```
 $ docker-compose down
 ```
@@ -58,7 +66,7 @@ $ docker-compose down
 To be able to run NetLicensing Demo Application you have to meet the following requirements:
 - PHP > 5.6.4
 - PHP Extensions: PDO, cURL, Mbstring, Tokenizer, Mcrypt, XML, GD
-- Node.js > 6.0
+- Node.js 22.23.4, 24.22.1, 26.12.1, or a newer patched release
 - Composer > 1.0.0
 
 ### Installation

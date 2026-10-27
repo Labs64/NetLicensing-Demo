@@ -9,6 +9,13 @@ services:
       - "./dockerfiles/config/php/www.conf:/etc/php-fpm.d/www.conf"
       - "./dockerfiles/config/php/php.ini:/usr/local/etc/php/php.ini"
       - "./dockerfiles/config/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini"
+  node:
+    image: node:24.22.1-bookworm
+    user: node
+    working_dir: /var/www/netlicensing-demo
+    profiles: [tools]
+    volumes:
+      - ".:/var/www/netlicensing-demo"
   nginx:
     image: nginx:latest
     container_name: nginx
